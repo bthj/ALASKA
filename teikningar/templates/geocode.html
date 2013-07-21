@@ -1,5 +1,26 @@
-<script>
+<style type="text/css">
+  html { height: 100% }
+  body { height: 100%; margin: 0; padding: 0 }
+  #map-canvas { height: 300px; }
+</style>
+<script type="text/javascript"
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_PsDKacUAo155HuRv0eUvg6z3JWpHyPY&sensor=false">
+</script>
+<script type="text/javascript">
 $(function() {
+	
+	function updateLatLngFields( lat, lng ) {
+		$("#id_latitude").val(lat);
+		$("#id_longitude").val(lng);
+	}
+	
+	function setWGS84CoordinatesFromISN93Values( x, y ) {
+		$.get("/cocodati/", { x: x, y: y })
+		.done(function(data) {
+		  updateLatLngFields(data[0], data[1]);
+		  createMarkerFromLatLngFields();
+		});
+	}
 
 	$( "#geocodeaddress" ).autocomplete({
 		source: function( request, response) {
@@ -18,8 +39,10 @@ $(function() {
 		select: function( event, ui ) {
 			
 			$( "#geocodeaddress" ).val( ui.item.text );
-			$( "#geocodex" ).text( ui.item.x );
-			$( "#geocodey" ).text( ui.item.y );
+			$( "#geocodex" ).val( ui.item.x );
+			$( "#geocodey" ).val( ui.item.y );
+
+			setWGS84CoordinatesFromISN93Values( ui.item.x, ui.item.y );
 			
 			return false;
 		}
@@ -34,18 +57,94 @@ $(function() {
     if( !$('#id_latitude').val() || !$('#id_longitude').val() ) {
     	$("#geocodeaddress").autocomplete('search', $("#geocodeaddress").val());    	
     }
+    
+    $('#geocodex, #geocodey').change(function() {
+    	setWGS84CoordinatesFromISN93Values( $('#geocodex').val(), $('#geocodey').val() );
+    });
+    
+    ///// maps /////
+	var map;
+	var marker;
+	var infowindow = new google.maps.InfoWindow({ size: new google.maps.Size(150,50) });
+	 // A function to create the marker and set up the event window function
+	 //  from: www.geocodezip.com/v3_example_click2add_infowindow.html
+	function createMarker(latlng, html) {
+		var contentString = html;
+		var marker = new google.maps.Marker({
+			position: latlng,
+			map: map,
+			zIndex: Math.round(latlng.lat()*-100000)<<5
+		});
+	
+		google.maps.event.addListener(marker, 'click', function() {
+			infowindow.setContent(contentString); 
+			infowindow.open(map,marker);
+		});
+		return marker;
+	}
+	
+	function createMarkerFromLatLngFields() {
+		if (marker) {
+			marker.setMap(null);
+			marker = null;
+		}
+		var latLng = new google.maps.LatLng($('#id_latitude').val(), $('#id_longitude').val());
+		marker = createMarker(latLng, "<strong>"+$('#geocodeaddress').val()+"</strong><br>"
+				+$('#id_latitude').val()+", "+$('#id_longitude').val());		
+		map.setZoom(17);
+		map.setCenter(latLng);
+	}
+
+	function initialize() {
+		if( $('#id_latitude').val() && $('#id_longitude').val() ) {
+			var latLng = new google.maps.LatLng($('#id_latitude').val(), $('#id_longitude').val());
+			var zoom = 17;
+			var isMarked = true;
+		} else {
+			var latLng = new google.maps.LatLng(64.93285273755635, -18.720703125);
+			var zoom = 6;
+			var isMarked = false;
+		}
+		var mapOptions = {
+			center: latLng,
+			zoom : zoom,
+			mapTypeId : google.maps.MapTypeId.ROADMAP
+		};
+		map = new google.maps.Map(document.getElementById("map-canvas"),
+				mapOptions);
+		if( isMarked ) {
+			createMarkerFromLatLngFields();
+		}
+		
+		google.maps.event.addListener(map, 'click', function(event) {
+			//call function to create marker
+			if (marker) {
+				marker.setMap(null);
+				marker = null;
+			}
+			marker = createMarker(event.latLng, "<strong>"+$('#id_stadur').val()+"</strong><br>"+event.latLng);
+			updateLatLngFields( event.latLng.lat(), event.latLng.lng() );
+		});
+	}
+	
+	initialize();
 
 });
+
+
+//	google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 
 
+
 <div class="ui-widget">
-  <label for="geocodeaddress">Address: </label>
+  <label for="geocodeaddress">Heimilisfang: </label>
   <input id="geocodeaddress" />
   <span style="background-color:lightgray;">ISN93: 
 	  <label for="geocodex">x: </label>
-	  <span id="geocodex"></span>
+	  <input type="text" id="geocodex" />
 	  <label for="geocodey">y: </label>
-	  <span id="geocodey"></span>
+	  <input type="text" id="geocodey" />
   </span>
 </div>
+<div id="map-canvas"></div>	

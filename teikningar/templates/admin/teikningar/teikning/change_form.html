@@ -8,5 +8,8 @@
 
 {% block form_top %}
 	{% if object_id %}{% display_scans object_id %}{% endif %}
+{% endblock %}
+
+{% block after_field_sets %}
 	{% display_geocode %}
 {% endblock %}

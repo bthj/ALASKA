@@ -48,7 +48,7 @@ class MyndbandInline(admin.TabularInline):
 
 class TeikningAdmin(admin.ModelAdmin):
     inlines = [ScanInine, UmfjollunInline, FrasognInline, LjosmyndInline, MyndbandInline]
-    list_display = ('hasTeikningar', 'dags_formatted', 'stadur', 'eigandi')
+    list_display = ('hasTeikningar', 'hasLocation', 'dags_formatted', 'stadur', 'eigandi')
     list_filter = ['flokkur', 'sveitarfelag', 'skipulag', 'teikning']
     search_fields = ['eigandi','stadur','sveitarfelag','flokkur','flokkur_nanar','skipulag','teikning']
     date_hierarchy = 'dags'
@@ -59,6 +59,11 @@ class TeikningAdmin(admin.ModelAdmin):
         return len(Scan.objects.filter(teikning=obj)) > 0
     hasTeikningar.boolean = True
     hasTeikningar.short_description = 'Skannað'
+    
+    def hasLocation(self, obj):
+        return obj.longitude is not None and obj.latitude is not None
+    hasLocation.boolean = True
+    hasLocation.short_description = 'Staðsett'
 
     
 class ScanAdmin(admin.ModelAdmin):
