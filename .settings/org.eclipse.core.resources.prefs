@@ -1,4 +1,7 @@
 eclipse.preferences.version=1
 encoding//teikningar/admin.py=utf-8
 encoding//teikningar/models.py=UTF-8
+encoding//teikningar/templates/geocode.html=UTF-8
 encoding//teikningar/templates/scans.html=UTF-8
+encoding//teikningar/views.py=utf-8
+encoding/<project>=UTF-8

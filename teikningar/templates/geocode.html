@@ -1,0 +1,51 @@
+<script>
+$(function() {
+
+	$( "#geocodeaddress" ).autocomplete({
+		source: function( request, response) {
+			$.ajax({
+				url: "/proxy/",
+				dataType: "json",
+				data: {
+					url: "http://lukr-01.reykjavik.is/bvsAddressFind/?Addr="+$('#geocodeaddress').val()+"&top=100&type=3"
+				},
+				success: function( data ) {
+					response( data );
+				}
+			});
+		}, 
+		minLength: 2,
+		select: function( event, ui ) {
+			
+			$( "#geocodeaddress" ).val( ui.item.text );
+			$( "#geocodex" ).text( ui.item.x );
+			$( "#geocodey" ).text( ui.item.y );
+			
+			return false;
+		}
+    })
+   .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+      return $( "<li>" )
+        .append( "<a>" + item.text + "<br>x: " + item.x + " - y: " + item.y + "</a>" )
+        .appendTo( ul );
+    };
+    
+    $( "#geocodeaddress" ).val( $('#id_stadur').val() );
+    if( !$('#id_latitude').val() || !$('#id_longitude').val() ) {
+    	$("#geocodeaddress").autocomplete('search', $("#geocodeaddress").val());    	
+    }
+
+});
+</script>
+
+
+<div class="ui-widget">
+  <label for="geocodeaddress">Address: </label>
+  <input id="geocodeaddress" />
+  <span style="background-color:lightgray;">ISN93: 
+	  <label for="geocodex">x: </label>
+	  <span id="geocodex"></span>
+	  <label for="geocodey">y: </label>
+	  <span id="geocodey"></span>
+  </span>
+</div>
