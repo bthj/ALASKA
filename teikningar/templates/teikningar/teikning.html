@@ -1,0 +1,10 @@
+<h1>{{ teikning.stadur }} - {{ teikning.eigandi }} ({{ teikning.dags|date:"Y-m-d" }})</h1>
+<ul>
+{% for scan in teikning.scan_set.all %}
+    <li>
+    	<a href="http://teikningar.alaska.is/png/{{ scan.scan }}.png">
+    		<img src="http://teikningar.alaska.is/pngX160/{{ scan.scan }}.png"/>
+    	</a>
+    </li>
+{% endfor %}
+</ul>

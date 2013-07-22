@@ -1,13 +1,61 @@
 #!python
 #coding=utf-8
 
-# Create your views here.
-
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseNotAllowed
+from django.shortcuts import render
+from django.http import Http404
+from teikningar.models import Teikning
 import requests
 import urllib
 import re
 import json
+
+def index(request):
+    teikningar_list = Teikning.objects.order_by('-dags')[:5]
+    context = {'teikningar_list': teikningar_list}
+    return render(request, 'teikningar/index.html', context)
+
+def detail(request, teikning_id):
+    try:
+        teikning = Teikning.objects.get(pk=teikning_id)
+    except Teikning.DoesNotExist:
+        raise Http404
+    return render(request, 'teikningar/teikning.html', {'teikning': teikning})
+
+def categories(request, field, title):
+    flokkar = Teikning.objects.order_by(field).values(field).distinct()
+    context = {'flokkar': flokkar, 'field': field, 'title': title}
+    return render(request, 'teikningar/flokkar.html', context)
+def skipuleggjendur(request):
+    return categories(request, 'skipulag', 'Skipuleggjendur')
+def teiknarar(request):
+    return categories(request, 'teikning', 'Teiknarar')
+def sveitarfelog(request):
+    return categories(request, 'sveitarfelag', 'Sveitarfélög')
+def flokkar(request):
+    return categories(request, 'flokkur', 'Flokkar')
+def artol(request):
+    artol = Teikning.objects.dates('dags','year',order='ASC')
+    context = {'artol': artol, 'title': 'Ártöl'}
+    return render(request, 'teikningar/artol.html', context)
+
+def entries_in_category(request, field, nafn, title):
+    kwargsempty = {field: ''}
+    kwargs = {field: nafn}
+    if nafn == 'vantar':
+        teikningar = Teikning.objects.filter(**kwargsempty)
+    else:
+        teikningar = Teikning.objects.filter(**kwargs)
+    context = {'teikningar': teikningar, 'title': title}
+    return render(request, 'teikningar/teikningar.html', context)
+def skipuleggjandi(request, nafn):
+    return entries_in_category(request, 'skipulag', nafn, 'Skipulag: '+nafn)
+def teiknari(request, nafn):
+    return entries_in_category(request, 'teikning', nafn, 'Teikning: '+nafn)
+def sveitarfelag(request, nafn):
+    return entries_in_category(request, 'sveitarfelag', nafn, 'Sveitarfélag: '+nafn.encode('utf-8'))
+def flokkur(request, nafn):
+    return entries_in_category(request, 'flokkur', nafn, 'Flokkur: '+nafn)
 
 # byggt á http://www.sdonk.org/2013/07/05/django-proxy-view-for-cross-domain-ajax-get-and-post-requests/
 def proxy(request):

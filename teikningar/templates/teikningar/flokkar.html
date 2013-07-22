@@ -1,0 +1,18 @@
+{% load getattribute %}
+
+<h1>{{title}}</h1>
+{% if flokkar %}
+    <ul>
+    {% for flokkur in flokkar %}
+        <li>
+      		{% if flokkur|getattribute:field == "" %}
+      			<a href="vantar/">Vantar</a>
+      		{% else %}
+    	  		<a href="{{ flokkur|getattribute:field }}/">{{ flokkur|getattribute:field }}</a>
+	       	{% endif %}
+       </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>{{title}} fundust ekki.</p>
+{% endif %}

@@ -1,0 +1,12 @@
+<h1>{{title}}</h1>
+{% if artol %}
+    <ul>
+    {% for artal in artol %}
+        <li>
+    	  	<a href="{{ artal.year }}/">{{ artal.year }}</a>
+       </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Engin ártöl fundust.</p>
+{% endif %}

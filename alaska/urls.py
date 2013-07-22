@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 import settings
+import views
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -14,6 +15,8 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
+    url(r'^$', views.index, name='index'),
+    url(r'^teikningar/', include('teikningar.urls')),
     url(r'^static/(.*)$', 'django.views.static.serve', {'document_root':settings.STATIC_ROOT}),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^proxy/$', 'teikningar.views.proxy', name='proxy'),

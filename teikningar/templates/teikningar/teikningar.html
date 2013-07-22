@@ -1,0 +1,10 @@
+<h1>{{ title }}</h1>
+{% if teikningar %}
+    <ul>
+    {% for teikning in teikningar %}
+        <li><a href="/teikningar/{{ teikning.id }}/">{{ teikning.stadur }} - {{ teikning.eigandi }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Engar teikningar fundust.</p>
+{% endif %}

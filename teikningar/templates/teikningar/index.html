@@ -1,0 +1,17 @@
+{% if teikningar_list %}
+    <ul>
+    {% for teikning in teikningar_list %}
+        <li><a href="/teikningar/{{ teikning.id }}/">{{ teikning.stadur }} - {{ teikning.eigandi }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Engar teikningar fundust.</p>
+{% endif %}
+
+<ul>
+	<li><a href="skipulag/">Skipulag</a></li>
+	<li><a href="teikning/">Teikning</a></li>
+	<li><a href="sveitarfelag/">Sveitarfélag</a></li>
+	<li><a href="artol">Ártöl</a></li>
+	<li><a href="flokkar/">Flokkar</a></li>
+</ul>
