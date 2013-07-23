@@ -1,0 +1,31 @@
+/* one drawing display */
+
+#scan-thumbs {
+	margin-top: 5px;
+}
+#scan-download {
+	width:100%;
+	text-align:center;
+	margin-top:10px;
+}
+#scan-thumbs a {
+	padding-right: 5px;
+}
+#scan-thumbs span {
+	float: left;
+}
+#scan-thumbs img {
+	cursor: pointer;
+	float: left;
+}
+#scan-dzi {
+	height: 500px;
+	width: 100%;
+	background-color: Black;
+}
+.active-scan {
+	border: 5px solid black;
+}
+.inactive-scan {
+	border: 5px solid lightgray;
+}

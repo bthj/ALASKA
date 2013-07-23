@@ -23,11 +23,13 @@ urlpatterns = patterns('',
     url(r'^flokkar/$', views.flokkar, name='flokkar'),
     
     # ex: /teikningar/skipulag/Jon...
-    url(r'^skipulag/(?P<nafn>.+)/$', views.skipuleggjandi, name='teikningar skipulagðar af'),
+    url(r'^skipulag/(?P<nafn>.+)/$', views.skipuleggjandi, name='one-skipulag'),
     # ex: /teikningar/teikning/Jon...
-    url(r'^teikning/(?P<nafn>.+)/$', views.teiknari, name='teikningar teiknaðar af'),
+    url(r'^teikning/(?P<nafn>.+)/$', views.teiknari, name='one-teikning'),
     # ex: /teikningar/sveitarfelag/Reyk...
-    url(r'^sveitarfelag/(?P<nafn>.+)/$', views.sveitarfelag, name='teikningar í sveitarfélagi'),
+    url(r'^sveitarfelag/(?P<nafn>.+)/$', views.sveitarfelag, name='one-sveitarfelag'),
     # ex: /teikningar/flokkar/L9...
-    url(r'^flokkar/(?P<nafn>.+)/$', views.flokkur, name='entries in category'),
+    url(r'^flokkar/(?P<nafn>.+)/$', views.flokkur, name='one-flokkar'),
+    # ex: /teikningar/artol/L9...
+    url(r'^artol/(?P<nafn>\d+)/$', views.artal, name='one-artal'),
 )

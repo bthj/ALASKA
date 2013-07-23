@@ -1,10 +1,121 @@
-<h1>{{ teikning.stadur }} - {{ teikning.eigandi }} ({{ teikning.dags|date:"Y-m-d" }})</h1>
-<ul>
+{% extends "teikningar/base.html" %}
+
+{% block title %} - {% include "teikningar/teikning_title.html" %}{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}	
+<meta name="description" content="Landslagsteikning fyrir: {% include "teikningar/teikning_title.html" %}, Skipulag: {{teikning.skipulag}}, Teikning: {{teikning.teikning}}">
+<meta name="keywords" content="landslagsarkitekt, {{teikning.skipulag}}, {{teikning.teikning}}">
+
+<link rel="stylesheet" href="/static/css/teikning.css" />
+<script type="text/javascript" src="http://teikningar.alaska.is/seadragon-min/seadragon-min.js"></script>
+{% endblock %}
+
+{% block content %}
+<h1>
+{% include "teikningar/teikning_title.html" %}
+</h1>
+
+{% if teikning.scan_set.all %}
+<div id="scan-dzi"></div>
+
+{% if teikning.scan_set.all|length > 1 %}
+<div id="scan-thumbs">
 {% for scan in teikning.scan_set.all %}
-    <li>
-    	<a href="http://teikningar.alaska.is/png/{{ scan.scan }}.png">
-    		<img src="http://teikningar.alaska.is/pngX160/{{ scan.scan }}.png"/>
+    <span>
+    	<a id="thumb_a_{{forloop.counter}}" href="http://teikningar.alaska.is/png/{{ scan.scan }}.png">
+    		<img id="thumb_img_{{forloop.counter}}" src="http://teikningar.alaska.is/pngX160/{{ scan.scan }}.png"/>
     	</a>
-    </li>
+    </span>
 {% endfor %}
-</ul>
+	<br clear="both"/>
+</div>
+{% endif %}
+
+<div id="scan-download">
+	Niðurhal:  <a id="scan-download-link" target="_blank" href="#"></a>
+</div>
+{% endif %}
+
+<dl>
+	{% if teikning.skipulag != "" %}
+	<dt>Hönnun</dt>
+	<dd><a href="{% url 'one-skipulag' teikning.skipulag %}">{{teikning.skipulag}}</a></dd>
+	{% endif %}
+	
+	{% if teikning.teikning != "" %}
+	<dt>Teikning</dt>
+	<dd><a href="{% url 'one-teikning' teikning.teikning %}">{{teikning.teikning}}</a></dd>
+	{% endif %}
+	
+	{% if teikning.sveitarfelag != "" %}
+	<dt>Sveitarfélag</dt>
+	<dd><a href="{% url 'one-sveitarfelag' teikning.sveitarfelag %}">{{teikning.sveitarfelag}}</a></dd>
+	{% endif %}
+	
+	{% if teikning.dags != "" %}
+	<dt>Dags</dt>
+	<dd><a href="{% url 'one-artal' teikning.dags|date:"Y" %}">{{teikning.dags|date:"Y-m-d"}}</a></dd>
+	{% endif %}
+</dl>
+
+<script type="text/javascript">
+var scanNames = [ {% for scan in teikning.scan_set.all %}'{{ scan.scan }}',{% endfor %} ]
+var viewer = null;
+function onZoomitResponse(resp) {
+    if (resp.error) {
+        // e.g. the URL is malformed or the service is down
+        alert(resp.error);
+        return;
+    }
+     
+    var content = resp.content;
+     
+    if (content.ready) {
+        viewer.openDzi(content.dzi);
+    } else if (content.failed) {
+        // alert(content.url + " failed to convert.");
+    } else {
+        alert(content.url + " er " +
+            Math.round(100 * content.progress) + "% tilbúin.");
+    }
+}
+function doOpen( scanName, anchor ) {
+	if( anchor ) {
+		window.location.hash = "#" + scanName;
+	}
+	var scanUrl = "http://teikningar.alaska.is/png/" + scanName + ".png";
+	$.ajax({
+	    url: "http://api.zoom.it/v1/content/?url=" +
+	        encodeURIComponent( scanUrl ),
+	    dataType: "jsonp",
+	    success: onZoomitResponse
+	});
+
+	$("#scan-thumbs img").removeClass("active-scan").addClass("inactive-scan");
+	$("#scan-thumbs img[src='http://teikningar.alaska.is/pngX160/" + scanName +".png']").removeClass("inactive-scan").addClass("active-scan");
+	
+	$('#scan-download-link').attr('href', scanUrl).text(scanUrl);
+}
+function seadragonInit() {
+	viewer = new Seadragon.Viewer($('#scan-dzi').get(0));
+	if( scanNames.length > 1 ) {
+		for( s = 0; s < scanNames.length; s++ ) {
+			$('#thumb_a_'+(s+1)).click(function(event){
+				event.preventDefault();
+			});
+			var image = $('#thumb_img_'+(s+1)).get(0);
+			Seadragon.Utils.addEvent(image, "click", Seadragon.Utils.createCallback(image, doOpen, scanNames[s], true));
+		}
+	}
+    // if the page's hash is set, open image with that hash
+    // if there is one. otherwise, just open the first image.
+    // note that if there's a hash, it'll begin with #.
+    var hash = (window.location.hash || " ").substr(1);
+    doOpen(hash || scanNames[0], false);    // don't anchor
+}
+if( scanNames.length > 0 ) {
+	Seadragon.Utils.addEvent(window, "load", seadragonInit);	
+}
+</script>
+{% endblock %}

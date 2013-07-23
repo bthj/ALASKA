@@ -1,8 +1,16 @@
-<h1>{{ title }}</h1>
+<h1><a href="../">{{title_type}}</a>: {{ title }}</h1>
 {% if teikningar %}
     <ul>
     {% for teikning in teikningar %}
-        <li><a href="/teikningar/{{ teikning.id }}/">{{ teikning.stadur }} - {{ teikning.eigandi }}</a></li>
+        <li>
+        	<a href="{% url 'detail' teikning.id %}">
+        		{{ teikning.stadur }}
+        		{% if teikning.stadur != "" and teikning.eigandi != "" %}
+        		 - 
+        		 {% endif %}
+        		 {{ teikning.eigandi }}
+        	</a>
+        </li>
     {% endfor %}
     </ul>
 {% else %}

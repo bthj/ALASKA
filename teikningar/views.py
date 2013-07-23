@@ -39,23 +39,25 @@ def artol(request):
     context = {'artol': artol, 'title': 'Ártöl'}
     return render(request, 'teikningar/artol.html', context)
 
-def entries_in_category(request, field, nafn, title):
+def entries_in_category(request, field, nafn, title_type, title):
     kwargsempty = {field: ''}
     kwargs = {field: nafn}
     if nafn == 'vantar':
         teikningar = Teikning.objects.filter(**kwargsempty)
     else:
         teikningar = Teikning.objects.filter(**kwargs)
-    context = {'teikningar': teikningar, 'title': title}
+    context = {'teikningar': teikningar, 'title_type': title_type, 'title': title}
     return render(request, 'teikningar/teikningar.html', context)
 def skipuleggjandi(request, nafn):
-    return entries_in_category(request, 'skipulag', nafn, 'Skipulag: '+nafn)
+    return entries_in_category(request, 'skipulag', nafn, 'Skipulag', nafn)
 def teiknari(request, nafn):
-    return entries_in_category(request, 'teikning', nafn, 'Teikning: '+nafn)
+    return entries_in_category(request, 'teikning', nafn, 'Teikning', nafn)
 def sveitarfelag(request, nafn):
-    return entries_in_category(request, 'sveitarfelag', nafn, 'Sveitarfélag: '+nafn.encode('utf-8'))
+    return entries_in_category(request, 'sveitarfelag', nafn, 'Sveitarfélag', nafn)
 def flokkur(request, nafn):
-    return entries_in_category(request, 'flokkur', nafn, 'Flokkur: '+nafn)
+    return entries_in_category(request, 'flokkur', nafn, 'Flokkur', nafn)
+def artal(request, nafn):
+    return entries_in_category(request, 'dags__year', nafn, 'Árið', nafn)
 
 # byggt á http://www.sdonk.org/2013/07/05/django-proxy-view-for-cross-domain-ajax-get-and-post-requests/
 def proxy(request):
