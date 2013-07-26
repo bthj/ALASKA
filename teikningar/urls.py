@@ -11,6 +11,9 @@ urlpatterns = patterns('',
     # ex: /teikningar/5/
     url(r'^(?P<teikning_id>\d+)/$', views.detail, name='detail'),
  
+    # ex: /teikningar/kml/
+    url(r'^kml/$', views.all_teikningar_as_kml, name='all_teikningar_as_kml'),
+ 
     # ex: /teikningar/skipulag/
     url(r'^skipulag/$', views.skipuleggjendur, name='skipulag'),
     # ex: /teikningar/teikning/

@@ -11,9 +11,13 @@ import re
 import json
 
 def index(request):
-    teikningar_list = Teikning.objects.order_by('-dags')[:5]
-    context = {'teikningar_list': teikningar_list}
+    context = {}
     return render(request, 'teikningar/index.html', context)
+
+def all_teikningar_as_kml(request):
+    teikningar = Teikning.objects.all
+    context = {'teikningar': teikningar}
+    return render(request, 'teikningar/kml.xml', context, content_type="text/xml")
 
 def detail(request, teikning_id):
     try:

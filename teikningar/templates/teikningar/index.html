@@ -1,12 +1,41 @@
-{% if teikningar_list %}
-    <ul>
-    {% for teikning in teikningar_list %}
-        <li><a href="/teikningar/{{ teikning.id }}/">{{ teikning.stadur }} - {{ teikning.eigandi }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>Engar teikningar fundust.</p>
-{% endif %}
+{% extends "teikningar/base.html" %}
+
+{% block title %} - Teikningar{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}	
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<meta name="description" content="Landslagsteikningar Jóns H. Björnssonar">
+<meta name="keywords" content="landslagsarkitekt, landslagsarkitektúr, skipulag, garðar">
+
+<link rel="stylesheet" href="/static/css/maps.css" />
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_PsDKacUAo155HuRv0eUvg6z3JWpHyPY&sensor=false"></script>
+<script>
+function initialize() {
+  var mapOptions = {
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  }
+
+  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+  var teikningarLayer = new google.maps.KmlLayer({
+//    url: '{% url 'all_teikningar_as_kml' %}'
+	   url: 'http://teikningar.alaska.is/kml5.xml'
+  });
+  teikningarLayer.setMap(map);
+  
+  google.maps.event.addListener(mapKmlLayer, 'click', function(kmlEvent) {
+	  kmlEvent.featureData.description = kmlEvent.featureData.description.gsub("_blank", "_self");
+	}); 
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+</script>
+{% endblock %}
+
+{% block content %}
+<div id="map-canvas"></div>
 
 <ul>
 	<li><a href="skipulag/">Skipulag</a></li>
@@ -15,3 +44,4 @@
 	<li><a href="artol">Ártöl</a></li>
 	<li><a href="flokkar/">Flokkar</a></li>
 </ul>
+{% endblock %}
