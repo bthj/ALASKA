@@ -1,0 +1,9 @@
+[
+{% if scans_in_random %}
+	{% for scan in scans_in_random %}
+		{% with teikning=scan.teikning %}  
+{ "scan": "{{scan.scan}}", "teikning_id": {{scan.teikning.pk}}, "title": "{% include "teikningar/teikning_title.html" %}" }{% if not forloop.last %},{% endif %}
+		{% endwith %}
+	{% endfor %}
+{% endif %}
+]

@@ -4,11 +4,12 @@
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseNotAllowed
 from django.shortcuts import render
 from django.http import Http404
-from teikningar.models import Teikning
+from teikningar.models import Teikning, Scan
 import requests
 import urllib
 import re
 import json
+import random
 
 def index(request):
     context = {}
@@ -18,6 +19,16 @@ def all_teikningar_as_kml(request):
     teikningar = Teikning.objects.all
     context = {'teikningar': teikningar}
     return render(request, 'teikningar/kml.xml', context, content_type="text/xml")
+
+def all_scans_in_random(request):
+    scans = list( Scan.objects.all() )
+    scans_in_random = []
+    while len(scans) > 0:
+        random_index = random.randint(0, len(scans)-1)
+        scans_in_random.append( scans[random_index] )
+        scans.pop(random_index)
+    context = {'scans_in_random': scans_in_random}
+    return render(request, 'teikningar/scans.json', context, content_type="application/json")
 
 def detail(request, teikning_id):
     try:

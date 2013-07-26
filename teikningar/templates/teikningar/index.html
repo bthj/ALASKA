@@ -10,10 +10,11 @@
 
 <link rel="stylesheet" href="/static/css/maps.css" />
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_PsDKacUAo155HuRv0eUvg6z3JWpHyPY&sensor=false"></script>
-<script>
+<script type="text/javascript">
+// Google Maps
 function initialize() {
   var mapOptions = {
-    mapTypeId: google.maps.MapTypeId.ROADMAP
+    mapTypeId: google.maps.MapTypeId.SATELLITE
   }
 
   var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
@@ -23,25 +24,94 @@ function initialize() {
 	   url: 'http://teikningar.alaska.is/kml5.xml'
   });
   teikningarLayer.setMap(map);
-  
-  google.maps.event.addListener(mapKmlLayer, 'click', function(kmlEvent) {
-	  kmlEvent.featureData.description = kmlEvent.featureData.description.gsub("_blank", "_self");
-	}); 
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
+</script>
 
+<script type="text/javascript">
+// Thumbs with infinite scroll
+$(function() {
+	var scans;
+	
+	function appendThumbsUntilInvisible() {
+		var thumbscontainer = $('#teikningar-thumbs');
+		for( i=0; i < 30; i++ ) {
+			if( scans.length ) {
+				var scan = scans.pop();
+				var thumblink = $('<a/>', {'href':'/teikningar/'+scan.teikning_id+'/#'+scan.scan, 'title':scan.title});
+				var thumbimg = $('<img/>', {'src':'http://teikningar.alaska.is/pngX160/'+scan.scan+'.png', 'alt':scan.title});
+				thumblink.append( thumbimg );
+				thumbscontainer.append( thumblink );
+			}
+		}
+	}
+	
+    $(window).scroll(function(){  
+        if( $(window).scrollTop() == $(document).height() - $(window).height() ){  
+        	appendThumbsUntilInvisible();  
+        }  
+	}); 
+	
+	$.get("/teikningar/scans-in-random/", function(data){
+		console.log(data);	
+		scans = data;
+		appendThumbsUntilInvisible();
+	});
+	
+});
 </script>
 {% endblock %}
 
-{% block content %}
-<div id="map-canvas"></div>
 
-<ul>
-	<li><a href="skipulag/">Skipulag</a></li>
-	<li><a href="teikning/">Teikning</a></li>
-	<li><a href="sveitarfelag/">Sveitarfélag</a></li>
-	<li><a href="artol">Ártöl</a></li>
-	<li><a href="flokkar/">Flokkar</a></li>
-</ul>
+{% block content %}
+<header id="page_header">
+	<h1>ALASKA.is</h1>
+</header>
+
+<section id="videos">
+	<article id="teikningar-map">
+		<header>
+			<h2>Staðsetning teikninga</h2>
+		</header>
+		<section>
+			<div id="map-canvas"></div>		
+		</section>
+		<footer>
+			<p>  
+				<a href="#">Sjá stærra kort</a>
+			</p>
+		</footer>
+	</article>
+	
+	<article id="teikningar-categories">
+		<header>
+			<h2>Teikningar flokkaðar</h2>
+		</header>
+		<section>
+			<ul>
+				<li><a href="skipulag/">Skipulag</a></li>
+				<li><a href="teikning/">Teikning</a></li>
+				<li><a href="sveitarfelag/">Sveitarfélag</a></li>
+				<li><a href="artol">Ártöl</a></li>
+				<li><a href="flokkar/">Flokkar</a></li>
+			</ul>		
+		</section>
+	</article>
+	
+	<article id="teikningar-thumbnails">
+		<header>
+			<h2>Allar teikningar af handahófi</h2>
+		</header>
+		<section>
+			<div id="teikningar-thumbs"></div>		
+		</section>
+	</article>
+</section>
+
+<footer id="page_footer">
+	<hr />
+	<address>alaska@alaska.is</address>
+</footer>
+
 {% endblock %}

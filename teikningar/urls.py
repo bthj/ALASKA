@@ -13,6 +13,8 @@ urlpatterns = patterns('',
  
     # ex: /teikningar/kml/
     url(r'^kml/$', views.all_teikningar_as_kml, name='all_teikningar_as_kml'),
+    # ex: /teikningar/scans/
+    url(r'^scans-in-random/$', views.all_scans_in_random, name='all_scans_in_random'),
  
     # ex: /teikningar/skipulag/
     url(r'^skipulag/$', views.skipuleggjendur, name='skipulag'),
