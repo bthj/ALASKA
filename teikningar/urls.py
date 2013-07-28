@@ -27,6 +27,9 @@ urlpatterns = patterns('',
     # ex: /teikningar/flokkar/
     url(r'^flokkar/$', views.flokkar, name='flokkar'),
     
+    # ex: /teikningar/myndband/
+    url(r'^myndband/$', views.myndband, name='myndband'),
+    
     # ex: /teikningar/skipulag/Jon...
     url(r'^skipulag/(?P<nafn>.+)/$', views.skipuleggjandi, name='one-skipulag'),
     # ex: /teikningar/teikning/Jon...

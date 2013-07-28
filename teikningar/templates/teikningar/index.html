@@ -13,17 +13,21 @@
 <script type="text/javascript">
 // Google Maps
 function initialize() {
-  var mapOptions = {
-    mapTypeId: google.maps.MapTypeId.SATELLITE
-  }
+	var mapOptions = {
+		mapTypeId: google.maps.MapTypeId.SATELLITE
+	}
 
-  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+	var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-  var teikningarLayer = new google.maps.KmlLayer({
+	var teikningarLayer = new google.maps.KmlLayer({
 //    url: '{% url 'all_teikningar_as_kml' %}'
 	   url: 'http://teikningar.alaska.is/kml5.xml'
-  });
-  teikningarLayer.setMap(map);
+	});
+	teikningarLayer.setMap(map);
+  
+	$("#map-canvas").on("click", "a", function(event){
+		$(this).attr('target','_self');
+	});
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
@@ -31,7 +35,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 <script type="text/javascript">
 // Thumbs with infinite scroll
-$(function() {
+$(function() {	
 	var scans;
 	
 	function appendThumbsUntilInvisible() {
@@ -69,13 +73,15 @@ $(function() {
 	<h1>ALASKA.is</h1>
 </header>
 
-<section id="videos">
+<p style="text-align:center;">Landslagsteikningar eftir <a href="http://jhb.bthj.is/">Jón H. Björnsson</a></p>
+
+<section>
 	<article id="teikningar-map">
 		<header>
 			<h2>Staðsetning teikninga</h2>
 		</header>
 		<section>
-			<div id="map-canvas"></div>		
+			<div id="map-canvas"></div>
 		</section>
 		<footer>
 			<p>  
@@ -95,6 +101,7 @@ $(function() {
 				<li><a href="sveitarfelag/">Sveitarfélag</a></li>
 				<li><a href="artol">Ártöl</a></li>
 				<li><a href="flokkar/">Flokkar</a></li>
+				<li><a href="myndband/">Myndskeið frá verkum</a></li>
 			</ul>		
 		</section>
 	</article>
@@ -108,10 +115,5 @@ $(function() {
 		</section>
 	</article>
 </section>
-
-<footer id="page_footer">
-	<hr />
-	<address>alaska@alaska.is</address>
-</footer>
 
 {% endblock %}

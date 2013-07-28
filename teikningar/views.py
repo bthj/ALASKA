@@ -4,7 +4,7 @@
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseNotAllowed
 from django.shortcuts import render
 from django.http import Http404
-from teikningar.models import Teikning, Scan
+from teikningar.models import Teikning, Scan, Myndband
 import requests
 import urllib
 import re
@@ -42,7 +42,7 @@ def categories(request, field, title):
     context = {'flokkar': flokkar, 'field': field, 'title': title}
     return render(request, 'teikningar/flokkar.html', context)
 def skipuleggjendur(request):
-    return categories(request, 'skipulag', 'Skipuleggjendur')
+    return categories(request, 'skipulag', 'Hönnuðir')
 def teiknarar(request):
     return categories(request, 'teikning', 'Teiknarar')
 def sveitarfelog(request):
@@ -64,7 +64,7 @@ def entries_in_category(request, field, nafn, title_type, title):
     context = {'teikningar': teikningar, 'title_type': title_type, 'title': title}
     return render(request, 'teikningar/teikningar.html', context)
 def skipuleggjandi(request, nafn):
-    return entries_in_category(request, 'skipulag', nafn, 'Skipulag', nafn)
+    return entries_in_category(request, 'skipulag', nafn, 'Hönnun', nafn)
 def teiknari(request, nafn):
     return entries_in_category(request, 'teikning', nafn, 'Teikning', nafn)
 def sveitarfelag(request, nafn):
@@ -73,6 +73,14 @@ def flokkur(request, nafn):
     return entries_in_category(request, 'flokkur', nafn, 'Flokkur', nafn)
 def artal(request, nafn):
     return entries_in_category(request, 'dags__year', nafn, 'Árið', nafn)
+
+def myndband(request):
+    myndbond = Myndband.objects.all()
+    teikningar = []
+    for myndband in myndbond:
+        teikningar.append(myndband.teikning)
+    context = {'teikningar': teikningar, 'title_type': ''}
+    return render(request, 'teikningar/teikningar_med_myndbandi.html', context)
 
 # byggt á http://www.sdonk.org/2013/07/05/django-proxy-view-for-cross-domain-ajax-get-and-post-requests/
 def proxy(request):

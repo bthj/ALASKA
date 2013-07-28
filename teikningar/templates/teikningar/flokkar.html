@@ -1,18 +1,47 @@
+{% extends "teikningar/base.html" %}
+
 {% load getattribute %}
 
-<h1>{{title}}</h1>
-{% if flokkar %}
-    <ul>
-    {% for flokkur in flokkar %}
-        <li>
-      		{% if flokkur|getattribute:field == "" %}
-      			<a href="vantar/">Vantar</a>
-      		{% else %}
-    	  		<a href="{{ flokkur|getattribute:field }}/">{{ flokkur|getattribute:field }}</a>
-	       	{% endif %}
-       </li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>{{title}} fundust ekki.</p>
-{% endif %}
+{% block title %} - {{title}}{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}	
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<meta name="description" content="Landslagsteikningar Jóns H. Björnssonar">
+<meta name="keywords" content="landslagsarkitekt, landslagsarkitektúr, skipulag, garðar">
+{% endblock %}
+
+
+{% block content %}
+<header id="page_header">
+	<h1>ALASKA.is</h1>
+</header>
+
+<section>
+	<article>
+		<header>
+			<h2>{{title}}</h2>
+		</header>
+		<section>
+			{% if flokkar %}
+			    <ul>
+			    {% for flokkur in flokkar %}
+			        <li>
+			      		{% if flokkur|getattribute:field == "" %}
+			      			<a href="vantar/">Vantar</a>
+			      		{% else %}
+			    	  		<a href="{{ flokkur|getattribute:field }}/">{{ flokkur|getattribute:field }}</a>
+				       	{% endif %}
+			       </li>
+			    {% endfor %}
+			    </ul>
+			{% else %}
+			    <p>{{title}} fundust ekki.</p>
+			{% endif %}
+		</section>
+		<footer>
+		</footer>
+	</article>
+</section>
+
+{% endblock %}

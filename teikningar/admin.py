@@ -39,7 +39,7 @@ class ScanInine(admin.TabularInline):
 class MyndbandAdminForm(forms.ModelForm):
     class Meta:
         model = Myndband
-    myndband = forms.CharField(label="Myndband", widget=SelectMyndbandWidget())
+#    myndband = forms.CharField(label="Myndband", widget=SelectMyndbandWidget())
 class MyndbandInline(admin.TabularInline):
     model = Myndband
     form = MyndbandAdminForm

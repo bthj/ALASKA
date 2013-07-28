@@ -8,57 +8,9 @@
 <meta name="keywords" content="landslagsarkitekt, {{teikning.skipulag}}, {{teikning.teikning}}">
 
 <link rel="stylesheet" href="/static/css/teikning.css" />
+<link rel="stylesheet" href="/static/css/maps.css" />
 <script type="text/javascript" src="http://teikningar.alaska.is/seadragon-min/seadragon-min.js"></script>
-{% endblock %}
-
-{% block content %}
-<h1>
-{% include "teikningar/teikning_title.html" %}
-</h1>
-
-{% if teikning.scan_set.all %}
-<div id="scan-dzi"></div>
-
-{% if teikning.scan_set.all|length > 1 %}
-<div id="scan-thumbs">
-{% for scan in teikning.scan_set.all %}
-    <span>
-    	<a id="thumb_a_{{forloop.counter}}" href="http://teikningar.alaska.is/png/{{ scan.scan }}.png">
-    		<img id="thumb_img_{{forloop.counter}}" src="http://teikningar.alaska.is/pngX160/{{ scan.scan }}.png"/>
-    	</a>
-    </span>
-{% endfor %}
-	<br clear="both"/>
-</div>
-{% endif %}
-
-<div id="scan-download">
-	Niðurhal:  <a id="scan-download-link" target="_blank" href="#"></a>
-</div>
-{% endif %}
-
-<dl>
-	{% if teikning.skipulag != "" %}
-	<dt>Hönnun</dt>
-	<dd><a href="{% url 'one-skipulag' teikning.skipulag %}">{{teikning.skipulag}}</a></dd>
-	{% endif %}
-	
-	{% if teikning.teikning != "" %}
-	<dt>Teikning</dt>
-	<dd><a href="{% url 'one-teikning' teikning.teikning %}">{{teikning.teikning}}</a></dd>
-	{% endif %}
-	
-	{% if teikning.sveitarfelag != "" %}
-	<dt>Sveitarfélag</dt>
-	<dd><a href="{% url 'one-sveitarfelag' teikning.sveitarfelag %}">{{teikning.sveitarfelag}}</a></dd>
-	{% endif %}
-	
-	{% if teikning.dags != "" %}
-	<dt>Dags</dt>
-	<dd><a href="{% url 'one-artal' teikning.dags|date:"Y" %}">{{teikning.dags|date:"Y-m-d"}}</a></dd>
-	{% endif %}
-</dl>
-
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_PsDKacUAo155HuRv0eUvg6z3JWpHyPY&sensor=false"></script>
 <script type="text/javascript">
 var scanNames = [ {% for scan in teikning.scan_set.all %}'{{ scan.scan }}',{% endfor %} ]
 var viewer = null;
@@ -112,10 +64,182 @@ function seadragonInit() {
     // if there is one. otherwise, just open the first image.
     // note that if there's a hash, it'll begin with #.
     var hash = (window.location.hash || " ").substr(1);
+    // check if hash is in scanNames
+    if( $.inArray(hash, scanNames) < 0 ) {
+    	hash = null;
+    }
     doOpen(hash || scanNames[0], false);    // don't anchor
 }
 if( scanNames.length > 0 ) {
 	Seadragon.Utils.addEvent(window, "load", seadragonInit);	
 }
 </script>
+
+<script type="text/javascript">
+// Google Maps
+var infowindow
+function initialize() {
+	var teikningLocation = new google.maps.LatLng({{teikning.latitude}},{{teikning.longitude}});
+	console.log(teikningLocation);
+	var mapOptions = {
+		zoom: 14,
+		center: teikningLocation,
+		mapTypeId: google.maps.MapTypeId.SATELLITE
+	}
+
+	var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+	var teikningarLayer = new google.maps.KmlLayer({
+//    url: '{% url 'all_teikningar_as_kml' %}'
+		url: 'http://teikningar.alaska.is/kml5.xml',
+		preserveViewport: true
+	});
+	teikningarLayer.setMap(map);
+  
+	infowindow = new google.maps.InfoWindow();
+	infowindow.setContent( '{% include "teikningar/teikning_title.html" %}' );
+	infowindow.setPosition( teikningLocation );
+	infowindow.open( map );
+	
+	google.maps.event.addListener(teikningarLayer, 'click', function() {
+		if( infowindow ) {
+			infowindow.close();
+		}
+	});
+	google.maps.event.addListener(map, 'click', function() {
+		if( infowindow ) {
+			infowindow.close();
+		}
+	});
+  
+	$("#map-canvas").on("click", "a", function(event){
+		$(this).attr('target','_self');
+	});
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+<script type="text/javascript">
+// Video URLs as embedded player
+$(function() {
+	
+	$('#teikningar-video section p').each(function(index){
+		var yturl = $(this).text();
+		var ytid = yturl.match(/.*\/(.*)\?/)[1];
+		var starttime = '';
+		var starttimeformatmatch = yturl.match(/.*t=(.*)/);
+		if( starttimeformatmatch ) {
+			var starttimeformat = starttimeformatmatch[1];
+			if( starttimeformat.match(/.*m.*/) ) {
+				var minutes = starttimeformat.match(/(.*)m.*s/)[1];
+				var seconds = starttimeformat.match(/.*m(.*)s/)[1];
+				console.log('minutes:' + minutes + ', seconds: ' + seconds);
+				starttime = 60*parseInt(minutes) + parseInt(seconds);
+			} else {
+				starttime = starttimeformat.match(/(.*)s/)[1];
+			}
+		}
+		var embedcode = '<iframe width="100%" height="500" src="http://www.youtube.com/embed/'+ytid+'?rel=0&start='+starttime+'&end=&autoplay=0" frameborder="0" allowfullscreen></iframe>';
+		$(this).html( embedcode );
+	});
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<header id="page_header">
+	<h1>ALASKA.is</h1>
+</header>
+
+<h2 style="text-align:center;">
+{% include "teikningar/teikning_title.html" %}
+</h2>
+
+
+<section>
+{% if teikning.scan_set.all %}	
+	<article id="teikningar-scans" style="padding: 0px 10px;">
+		<section>
+			<div id="scan-dzi"></div>
+		</section>
+	</article>
+	<article>
+		<section>
+			{% if teikning.scan_set.all|length > 1 %}
+			<div id="scan-thumbs">
+			{% for scan in teikning.scan_set.all %}
+		    	<a id="thumb_a_{{forloop.counter}}" href="http://teikningar.alaska.is/png/{{ scan.scan }}.png"><img id="thumb_img_{{forloop.counter}}" src="http://teikningar.alaska.is/pngX160/{{ scan.scan }}.png"/></a>
+			{% endfor %}
+				<br clear="both"/>
+			</div>
+			{% endif %}
+		</section>
+		<footer>
+			<p id="scan-download">
+				Niðurhal:  <a id="scan-download-link" target="_blank" href="#"></a>
+			</p>		
+		</footer>
+	</article>
+{% endif %}
+
+	<article>
+		<header>
+			<h2>Upplýsingar um verk</h2>
+		</header>
+		<section style="margin:auto;">
+			<dl style="margin-left:66%">
+				{% if teikning.skipulag != "" %}
+				<dt>Hönnun</dt>
+				<dd><a href="{% url 'one-skipulag' teikning.skipulag %}">{{teikning.skipulag}}</a></dd>
+				{% endif %}
+				
+				{% if teikning.teikning != "" %}
+				<dt>Teikning</dt>
+				<dd><a href="{% url 'one-teikning' teikning.teikning %}">{{teikning.teikning}}</a></dd>
+				{% endif %}
+				
+				{% if teikning.sveitarfelag != "" %}
+				<dt>Sveitarfélag</dt>
+				<dd><a href="{% url 'one-sveitarfelag' teikning.sveitarfelag %}">{{teikning.sveitarfelag}}</a></dd>
+				{% endif %}
+				
+				{% if teikning.dags != "" %}
+				<dt>Dags</dt>
+				<dd><a href="{% url 'one-artal' teikning.dags|date:"Y" %}">{{teikning.dags|date:"Y-m-d"}}</a></dd>
+				{% endif %}
+			</dl>
+		</section>
+		<footer>		
+		</footer>
+	</article>
+	{% if teikning.latitude and teikning.longitude %}
+	<article>
+		<header>
+			<h2>Staðsetning</h2>
+		</header>
+		<section>
+			<div id="map-canvas"></div>
+		</section>
+		<footer>
+		</footer>
+	</article>
+	{% endif %}
+	
+	{% if teikning.myndband_set.all|length > 0 %}
+	<article id="teikningar-video">
+		<header>
+			<h2>Myndskeið</h2>
+		</header>
+		<section>
+		{% for myndband in teikning.myndband_set.all %}
+		<p>{{myndband.myndband}}</p>
+		{% endfor %}
+		</section>
+		<footer>		
+		</footer>
+	</article>
+	{% endif %}
+</section>
+
 {% endblock %}

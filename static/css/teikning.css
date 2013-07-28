@@ -2,6 +2,7 @@
 
 #scan-thumbs {
 	margin-top: 5px;
+	text-align:center;
 }
 #scan-download {
 	width:100%;
@@ -9,19 +10,20 @@
 	margin-top:10px;
 }
 #scan-thumbs a {
-	padding-right: 5px;
+/* 	padding-right: 5px; */
 }
-#scan-thumbs span {
-	float: left;
-}
+/* #scan-thumbs span { */
+/* 	float: left; */
+/* } */
 #scan-thumbs img {
 	cursor: pointer;
-	float: left;
+/* 	float: left; */
+	margin: 1em;
 }
 #scan-dzi {
 	height: 500px;
 	width: 100%;
-	background-color: Black;
+	background-color: lightgray;
 }
 .active-scan {
 	border: 5px solid black;

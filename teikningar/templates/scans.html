@@ -110,8 +110,8 @@ function seadragonInit() {
     
     
     var scanWrapper = $('#scan-wrapper');
-    if( scanNames.length > 2 ) {
-    	scanWrapper.height( (scanNames.length-2) * 310 );
+    if( scanNames.length > 1 ) {
+    	scanWrapper.height( (scanNames.length-1) * 310 );
     }
 }
 Seadragon.Utils.addEvent(window, "load", seadragonInit);

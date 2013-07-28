@@ -18,6 +18,10 @@ article, body footer {
 	margin-top: 52px;
 }
 
+#content footer {
+	text-align: right;
+}
+
 .reference {
 	vertical-align: super;
 	font-size:xx-small;
@@ -44,6 +48,24 @@ article.video section.video_stream {
 
 
 
+/* flokkar */
+/* from http://stackoverflow.com/questions/5449872/css-notlast-childafter-selector */
+#teikningar-categories ul {
+    list-style-type:   none;
+    text-align:        center;
+}
+#teikningar-categories li {
+    display:           inline;
+}
+#teikningar-categories li:not(:last-child):after {
+    content:           ' |';
+}
+
+section ul li {
+	padding: 5px 0px;
+}
+
+
 /* scan thumbs */
 #teikningar-thumbs {
 	text-align:center;
@@ -51,7 +73,4 @@ article.video section.video_stream {
 #teikningar-thumbs img {
 	margin: 1em;
 	border: 5px solid lightgray;
-}
-#teikningar-thumbs a {
-	
 }

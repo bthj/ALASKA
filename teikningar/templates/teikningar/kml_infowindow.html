@@ -1,0 +1,27 @@
+        	<div style="width:400px;">
+				<dl style="float:right;">
+					{% if teikning.skipulag != "" %}
+					<dt>Hönnun</dt>
+					<dd><a href="{% url 'one-skipulag' teikning.skipulag %}">{{teikning.skipulag}}</a></dd>
+					{% endif %}
+					
+					{% if teikning.teikning != "" %}
+					<dt>Teikning</dt>
+					<dd><a href="{% url 'one-teikning' teikning.teikning %}">{{teikning.teikning}}</a></dd>
+					{% endif %}
+					
+					{% if teikning.dags != "" %}
+					<dt>Dags</dt>
+					<dd><a href="{% url 'one-artal' teikning.dags|date:"Y" %}">{{teikning.dags|date:"Y-m-d"}}</a></dd>
+					{% endif %}
+				</dl>
+				<div style="float:left;">
+			    	<a href="{% url 'detail' teikning.id %}" target="_self">
+			    		{% if teikning.scan_set.all|length > 0 %}
+			    		<img src="http://teikningar.alaska.is/pngX160/{{ teikning.scan_set.all.0.scan }}.png"/>
+			    		{% else %}
+			    		Sjá nánar
+			    		{% endif %}
+			    	</a>
+				</div>
+          	</div>
