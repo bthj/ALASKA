@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2">
 <Document>
-<!--    <Style id="withScansIcon"> -->
-<!--       <IconStyle> -->
+   <Style id="withScansIcon">
+      <IconStyle>
 <!--          <color>ff00ff00</color> -->
 <!--          <colorMode>random</colorMode> -->
-<!--          <scale>1.1</scale> -->
-<!--          <Icon> -->
-<!--             <href>http://maps.google.com/mapfiles/kml/pal3/icon21.png</href> -->
-<!--          </Icon> -->
-<!--       </IconStyle> -->
-<!--    </Style> -->
-<!--    <Style id="withoutScansIcon"> -->
-<!--       <IconStyle> -->
+         <scale>2.1</scale>
+         <Icon>
+            <href>http://teikningar.alaska.is/static/images/lurkur_lodrettur_x120.png</href>
+         </Icon>
+      </IconStyle>
+   </Style>
+   <Style id="withoutScansIcon">
+      <IconStyle>
 <!--          <color>ff00ff00</color> -->
 <!--          <colorMode>random</colorMode> -->
-<!--          <scale>1.1</scale> -->
-<!--          <Icon> -->
-<!--             <href>http://maps.google.com/mapfiles/kml/pal3/icon22.png</href> -->
-<!--          </Icon> -->
-<!--       </IconStyle> -->
-<!--    </Style> -->
+         <scale>1.1</scale>
+         <Icon>
+            <href>http://teikningar.alaska.is/static/images/lurkur_lodrettur_x120.png</href>
+         </Icon>
+      </IconStyle>
+   </Style>
 
 {% for teikning in teikningar %}
    {% if teikning.latitude and teikning.longitude %}
@@ -32,9 +32,9 @@
         ]]>
       </description>
       {% if teikning.scan_set.all|length > 0 %}
-<!--       <styleUrl>#withScansIcon</styleUrl> -->
+      <styleUrl>#withScansIcon</styleUrl>
       {% else %}
-<!--       <styleUrl>#withoutScansIcon</styleUrl> -->
+      <styleUrl>#withoutScansIcon</styleUrl>
       {% endif %}
       <Point>
          <coordinates>{{teikning.longitude}},{{teikning.latitude}}</coordinates>

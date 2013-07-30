@@ -1,4 +1,5 @@
 {% extends "teikningar/base.html" %}
+{% load static %}
 
 {% block title %} - Teikningar{% endblock %}
 
@@ -8,33 +9,25 @@
 <meta name="description" content="Landslagsteikningar Jóns H. Björnssonar">
 <meta name="keywords" content="landslagsarkitekt, landslagsarkitektúr, skipulag, garðar">
 
-<link rel="stylesheet" href="/static/css/maps.css" />
+<link rel="stylesheet" href="{% static "css/maps.css" %}" />
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_PsDKacUAo155HuRv0eUvg6z3JWpHyPY&sensor=false"></script>
+<script type="text/javascript" src="{% static "js/geoxml3.js" %}"></script>
+
 <script type="text/javascript">
-// Google Maps
-function initialize() {
-	var mapOptions = {
-		mapTypeId: google.maps.MapTypeId.SATELLITE
-	}
-
-	var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
-	var teikningarLayer = new google.maps.KmlLayer({
-//    url: '{% url 'all_teikningar_as_kml' %}'
-	   url: 'http://teikningar.alaska.is/kml5.xml'
-	});
-	teikningarLayer.setMap(map);
-  
-	$("#map-canvas").on("click", "a", function(event){
-		$(this).attr('target','_self');
-	});
+var staticUrlPrefix = '{% static "" %}';
+</script>
+<script type="text/javascript" src="{% static "js/teikningakort.js" %}"></script>
+<script type="text/javascript">
+///// Google Maps
+var mapOptions = {
+	mapTypeId: google.maps.MapTypeId.SATELLITE
 }
-
-google.maps.event.addDomListener(window, 'load', initialize);
+var geoXML3ZoomToFit = true;
+google.maps.event.addDomListener(window, 'load', mapsInitialize);
 </script>
 
 <script type="text/javascript">
-// Thumbs with infinite scroll
+///// Thumbs with infinite scroll
 $(function() {	
 	var scans;
 	
@@ -57,8 +50,7 @@ $(function() {
         }  
 	}); 
 	
-	$.get("/teikningar/scans-in-random/", function(data){
-		console.log(data);	
+	$.get("/teikningar/scans-in-random/", function(data){	
 		scans = data;
 		appendThumbsUntilInvisible();
 	});
@@ -79,15 +71,12 @@ $(function() {
 	<article id="teikningar-map">
 		<header>
 			<h2>Staðsetning teikninga</h2>
+			<p>Smellið á lurkana til að sjá upplýsingar um verk.</p>
 		</header>
 		<section>
 			<div id="map-canvas"></div>
 		</section>
-		<footer>
-			<p>  
-				<a href="#">Sjá stærra kort</a>
-			</p>
-		</footer>
+		<footer></footer>
 	</article>
 	
 	<article id="teikningar-categories">
@@ -104,6 +93,7 @@ $(function() {
 				<li><a href="myndband/">Myndskeið frá verkum</a></li>
 			</ul>		
 		</section>
+		<footer></footer>
 	</article>
 	
 	<article id="teikningar-thumbnails">

@@ -1,12 +1,39 @@
-<h1>{{title}}</h1>
-{% if artol %}
-    <ul>
-    {% for artal in artol %}
-        <li>
-    	  	<a href="{{ artal.year }}/">{{ artal.year }}</a>
-       </li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>Engin ártöl fundust.</p>
-{% endif %}
+{% extends "teikningar/base.html" %}
+
+{% block title %} - {{title}}{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}	
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<meta name="description" content="Landslagsteikningar Jóns H. Björnssonar">
+<meta name="keywords" content="landslagsarkitekt, landslagsarkitektúr, skipulag, garðar">
+{% endblock %}
+
+{% block content %}
+<header id="page_header">
+	<h1>ALASKA.is</h1>
+</header>
+
+<section>
+	<article id="teikningar-artol">
+		<header>
+			<h2>{{ title }}</h2>
+		</header>
+		<section>
+			{% if artol %}
+			    <ul>
+			    {% for artal in artol %}
+			        <li>
+			    	  	<a href="{{ artal.year }}/">{{ artal.year }}</a>
+			       </li>
+			    {% endfor %}
+			    </ul>
+			{% else %}
+			    <p>Engin ártöl fundust.</p>
+			{% endif %}
+		</section>
+		<footer></footer>
+	</article>
+</section>
+
+{% endblock %}

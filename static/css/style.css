@@ -9,7 +9,7 @@ header#page_header {
 }
 header h1 {
 	text-indent: -3000px;
-	background: url("../images/ALASKAx150.png") no-repeat scroll center top;
+	background: url("../images/ALASKAvx150.png") no-repeat scroll center top;
 	height: 150px;
 	margin:0px 0px 30px 0px;
 }
@@ -50,15 +50,18 @@ article.video section.video_stream {
 
 /* flokkar */
 /* from http://stackoverflow.com/questions/5449872/css-notlast-childafter-selector */
-#teikningar-categories ul {
+#teikningar-categories ul, #teikningar-artol ul {
     list-style-type:   none;
     text-align:        center;
 }
-#teikningar-categories li {
+#teikningar-categories li, #teikningar-artol li {
     display:           inline;
 }
-#teikningar-categories li:not(:last-child):after {
+#teikningar-categories li:not(:last-child):after, #teikningar-artol li:not(:last-child):after {
     content:           ' |';
+}
+#teikningar-artol li {
+	font-size: 2.5em;
 }
 
 section ul li {
