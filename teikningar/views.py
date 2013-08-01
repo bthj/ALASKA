@@ -11,9 +11,14 @@ import re
 import json
 import random
 
+base_context = {
+    'isFrontPage': False, 
+    'secondary_index_path': '/teikningar/', 
+    'secondary_index_title': 'Teikningar'
+}
+
 def index(request):
-    context = {'isFrontPage': False}
-    return render(request, 'teikningar/index.html', context)
+    return render(request, 'teikningar/index.html', base_context)
 
 def all_teikningar_as_kml(request):
     teikningar = Teikning.objects.all
@@ -35,12 +40,12 @@ def detail(request, teikning_id):
         teikning = Teikning.objects.get(pk=teikning_id)
     except Teikning.DoesNotExist:
         raise Http404
-    return render(request, 'teikningar/teikning.html', {'teikning': teikning})
+    return render(request, 'teikningar/teikning.html', dict(base_context.items() + {'teikning': teikning}.items()))
 
 def categories(request, field, title):
     flokkar = Teikning.objects.order_by(field).values(field).distinct()
     context = {'flokkar': flokkar, 'field': field, 'title': title}
-    return render(request, 'teikningar/flokkar.html', context)
+    return render(request, 'teikningar/flokkar.html', dict(base_context.items() + context.items()))
 def skipuleggjendur(request):
     return categories(request, 'skipulag', 'Hönnuðir')
 def teiknarar(request):
@@ -62,7 +67,7 @@ def entries_in_category(request, field, nafn, title_type, title):
     else:
         teikningar = Teikning.objects.filter(**kwargs)
     context = {'teikningar': teikningar, 'title_type': title_type, 'title': title}
-    return render(request, 'teikningar/teikningar.html', context)
+    return render(request, 'teikningar/teikningar.html', dict(base_context.items() + context.items()))
 def skipuleggjandi(request, nafn):
     return entries_in_category(request, 'skipulag', nafn, 'Hönnun', nafn)
 def teiknari(request, nafn):
@@ -80,7 +85,7 @@ def myndband(request):
     for myndband in myndbond:
         teikningar.append(myndband.teikning)
     context = {'teikningar': teikningar, 'title_type': ''}
-    return render(request, 'teikningar/teikningar_med_myndbandi.html', context)
+    return render(request, 'teikningar/teikningar_med_myndbandi.html', dict(base_context.items() + context.items()))
 
 # byggt á http://www.sdonk.org/2013/07/05/django-proxy-view-for-cross-domain-ajax-get-and-post-requests/
 def proxy(request):

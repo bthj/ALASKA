@@ -18,12 +18,12 @@
 		{% if isFrontPage %}
 		<header id="frontpage_header">
 			 <h1><a href="/" title="ALASKA.is"><img src="{% static "images/ALASKAvx150.png" %}" alt="ALASKA" /></a></h1>
-			 <h2>Landslagsteikningar eftir <a href="/jhb">Jón H. Björnsson</a></h2>
+			 <h2>Landslagsteikningar eftir <a href="/Jon-Hallgrimur-Bjornsson">Jón H. Björnsson</a></h2>
 		</header>
 		{% else %}
 		<header id="page_header">
-			<h1><a href="/" title="ALASKA.is"><img src="{% static "images/alaska_x75.png" %}" alt="ALASKA" /></a></h1>
-			<h2><a href="/teikningar/">Teikningar</a></h2>
+			<h1><a href="/" title="ALASKA.is"><img src="{% static "images/alaska_300x.png" %}" alt="ALASKA" /></a></h1>
+			<h2><a href="{{secondary_index_path}}">{{secondary_index_title}}</a></h2>
 		</header>
 		{% endif %}
     

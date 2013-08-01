@@ -1,4 +1,4 @@
-{% extends "teikningar/base.html" %}
+{% extends "alaska_base.html" %}
 {% load static %}
 
 {% block title %} - Teikningar{% endblock %}
@@ -80,7 +80,7 @@ $(function() {
 		</header>
 		<section>
 			<ul>
-				<li><a href="{% url 'skipulag' %}">Skipulag</a></li>
+				<li><a href="{% url 'skipulag' %}">Hönnun</a></li>
 				<li><a href="{% url 'teikning' %}">Teikning</a></li>
 				<li><a href="{% url 'sveitarfelag' %}">Sveitarfélag</a></li>
 				<li><a href="{% url 'artol' %}">Ártöl</a></li>

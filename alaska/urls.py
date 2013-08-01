@@ -16,7 +16,7 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^$', views.index, name='index'),
-    url(r'^jhb/$', views.jhb, name='index'),
+    url(r'^Jon-Hallgrimur-Bjornsson$', views.jhb, name='jhb'),
     url(r'^teikningar/', include('teikningar.urls')),
     url(r'^static/(.*)$', 'django.views.static.serve', {'document_root':settings.STATIC_ROOT}),
     url(r'^admin/', include(admin.site.urls)),

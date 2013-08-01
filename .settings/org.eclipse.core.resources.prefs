@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//alaska/views.py=utf-8
 encoding//teikningar/admin.py=utf-8
 encoding//teikningar/models.py=UTF-8
 encoding//teikningar/templates/geocode.html=UTF-8

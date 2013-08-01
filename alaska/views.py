@@ -1,3 +1,5 @@
+#!python
+#coding=utf-8
 from django.shortcuts import render
 
 def index(request):
@@ -5,5 +7,10 @@ def index(request):
     return render(request, 'teikningar/index.html', context)
 
 def jhb(request):
-    context = {'isFrontPage': True}
-    return render(request, 'alaska/jhb.html', context)
+    context = {
+        'isFrontPage': False, 
+        'secondary_index_path': '/jhb/', 
+        'secondary_index_title': 'Jón H. Björnsson'
+    }
+    
+    return render(request, 'jhb/jhb.html', context)

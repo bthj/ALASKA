@@ -1,18 +1,27 @@
-<!DOCTYPE html>
-<html lang="is">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>ALASKA.is - Jón H. Björnsson, landslagsarkitekt</title>
-		<link rel="stylesheet" href="site_media/css/style.css" type="text/css">
-	</head>
-	<body>
-		<header id="page_header">
-			<h1>ALASKA.is</h1>
-		</header>
+{% extends "alaska_base.html" %}
+
+{% block title %} - ALASKA.is - Jón H. Björnsson, landslagsarkitekt{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}	
+<meta name="description" content="Jón H. Björnsson, landslagsarkitekt og frumkvöðull">
+<meta name="keywords" content="landslagsarkitekt, landslagsarkitektúr, skipulag, garðar">
+{% endblock %}
+
+{% block content %}
 		
-		<p>Hér er stefnt á að gera <a href="http://jhb.bthj.is/">landslagsteikningasafn Jóns H. Björnssonar</a> aðgengilegt en nú má sjá nokkrar kvikmyndir:</p>
+		<p>Um Jón H. Björnsson...</p>
 		
-		<section id="videos">
+		<nav>
+			<ul>
+				<li><a href="#kvikmyndir">Kvikmyndir</a></li>
+				<li><a href="#greinar">Greinar</a></li>
+				<li><a href="#ritgerdir">Ritgerðir</a></li>
+			</ul>
+		</nav>
+		
+		<section id="kvikmyndir">
+			<h2>Kvikmyndir</h2>
 			<nav>
 				<ul>
 					<li><a href="#ALASKA_seed_collection">Alaska myndin</a></li>
@@ -29,7 +38,7 @@
 					<p>sem bræðurnir Árni og Jón H. Björnssynir fóru:</p>
 				</header>
 				<section class="video_stream">
-					<object width="640" height="506" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"><param value="true" name="allowfullscreen"/><param value="always" name="allowscriptaccess"/><param value="high" name="quality"/><param value="true" name="cachebusting"/><param value="#000000" name="bgcolor"/><param name="movie" value="http://www.archive.org/flow/flowplayer.commercial-3.2.1.swf" /><param value="config={'key':'#$aa4baff94a9bdcafce8','playlist':['format=Thumbnail?.jpg',{'autoPlay':false,'url':'ALASKA_512kb.mp4'},'fyrirspurnir_512kb.mp4'],'clip':{'autoPlay':true,'baseUrl':'http://www.archive.org/download/ALASKA_seed_collection/','scaling':'fit','provider':'h264streaming'},'canvas':{'backgroundColor':'#000000','backgroundGradient':'none'},'plugins':{'controls':{'playlist':true,'fullscreen':true,'height':26,'backgroundColor':'#000000','autoHide':{'fullscreenOnly':true}},'h264streaming':{'url':'http://www.archive.org/flow/flowplayer.pseudostreaming-3.2.1.swf'}},'contextMenu':[{},'-','Flowplayer v3.2.1']}" name="flashvars"/><embed src="http://www.archive.org/flow/flowplayer.commercial-3.2.1.swf" type="application/x-shockwave-flash" width="640" height="506" allowfullscreen="true" allowscriptaccess="always" cachebusting="true" bgcolor="#000000" quality="high" flashvars="config={'key':'#$aa4baff94a9bdcafce8','playlist':['format=Thumbnail?.jpg',{'autoPlay':false,'url':'ALASKA_512kb.mp4'},'fyrirspurnir_512kb.mp4'],'clip':{'autoPlay':true,'baseUrl':'http://www.archive.org/download/ALASKA_seed_collection/','scaling':'fit','provider':'h264streaming'},'canvas':{'backgroundColor':'#000000','backgroundGradient':'none'},'plugins':{'controls':{'playlist':true,'fullscreen':true,'height':26,'backgroundColor':'#000000','autoHide':{'fullscreenOnly':true}},'h264streaming':{'url':'http://www.archive.org/flow/flowplayer.pseudostreaming-3.2.1.swf'}},'contextMenu':[{},'-','Flowplayer v3.2.1']}"> </embed></object>
+					<iframe width="780" height="585" src="//www.youtube.com/embed/t8lX6d2ZMZ4" frameborder="0" allowfullscreen></iframe>
 				</section>
 				<section>
 					<p>
@@ -63,7 +72,7 @@
 					<p>tekið upp í apr - des 1981</p>
 				</header>
 				<section class="video_stream">
-					<object width="640" height="506" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"><param value="true" name="allowfullscreen"/><param value="always" name="allowscriptaccess"/><param value="high" name="quality"/><param value="true" name="cachebusting"/><param value="#000000" name="bgcolor"/><param name="movie" value="http://www.archive.org/flow/flowplayer.commercial-3.2.1.swf" /><param value="config={'key':'#$aa4baff94a9bdcafce8','playlist':['format=Thumbnail?.jpg',{'autoPlay':false,'url':'Jon_H_Bjornsson_biography_512kb.mp4'}],'clip':{'autoPlay':true,'baseUrl':'http://www.archive.org/download/Jon_H_Bjornsson__biography/','scaling':'fit','provider':'h264streaming'},'canvas':{'backgroundColor':'#000000','backgroundGradient':'none'},'plugins':{'controls':{'playlist':false,'fullscreen':true,'height':26,'backgroundColor':'#000000','autoHide':{'fullscreenOnly':true}},'h264streaming':{'url':'http://www.archive.org/flow/flowplayer.pseudostreaming-3.2.1.swf'}},'contextMenu':[{},'-','Flowplayer v3.2.1']}" name="flashvars"/><embed src="http://www.archive.org/flow/flowplayer.commercial-3.2.1.swf" type="application/x-shockwave-flash" width="640" height="506" allowfullscreen="true" allowscriptaccess="always" cachebusting="true" bgcolor="#000000" quality="high" flashvars="config={'key':'#$aa4baff94a9bdcafce8','playlist':['format=Thumbnail?.jpg',{'autoPlay':false,'url':'Jon_H_Bjornsson_biography_512kb.mp4'}],'clip':{'autoPlay':true,'baseUrl':'http://www.archive.org/download/Jon_H_Bjornsson__biography/','scaling':'fit','provider':'h264streaming'},'canvas':{'backgroundColor':'#000000','backgroundGradient':'none'},'plugins':{'controls':{'playlist':false,'fullscreen':true,'height':26,'backgroundColor':'#000000','autoHide':{'fullscreenOnly':true}},'h264streaming':{'url':'http://www.archive.org/flow/flowplayer.pseudostreaming-3.2.1.swf'}},'contextMenu':[{},'-','Flowplayer v3.2.1']}"> </embed></object>
+					<iframe width="780" height="585" src="//www.youtube.com/embed/ERosHR1zcSk" frameborder="0" allowfullscreen></iframe>
 				</section>
 				<footer>
 					<p>
@@ -79,7 +88,7 @@
 					<p>sem Guðmundur T. Gíslason, Jón H. Björnsson og Pétur N. Ólason fóru:</p>
 				</header>
 				<section class="video_stream">
-					<object width="640" height="506" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"><param value="true" name="allowfullscreen"/><param value="always" name="allowscriptaccess"/><param value="high" name="quality"/><param value="true" name="cachebusting"/><param value="#000000" name="bgcolor"/><param name="movie" value="http://www.archive.org/flow/flowplayer.commercial-3.2.1.swf" /><param value="config={'key':'#$aa4baff94a9bdcafce8','playlist':['format=Thumbnail?.jpg',{'autoPlay':false,'url':'Eldland_512kb.mp4'}],'clip':{'autoPlay':true,'baseUrl':'http://www.archive.org/download/Tierra_del_Fuego_seed_collection/','scaling':'fit','provider':'h264streaming'},'canvas':{'backgroundColor':'#000000','backgroundGradient':'none'},'plugins':{'controls':{'playlist':false,'fullscreen':true,'height':26,'backgroundColor':'#000000','autoHide':{'fullscreenOnly':true}},'h264streaming':{'url':'http://www.archive.org/flow/flowplayer.pseudostreaming-3.2.1.swf'}},'contextMenu':[{},'-','Flowplayer v3.2.1']}" name="flashvars"/><embed src="http://www.archive.org/flow/flowplayer.commercial-3.2.1.swf" type="application/x-shockwave-flash" width="640" height="506" allowfullscreen="true" allowscriptaccess="always" cachebusting="true" bgcolor="#000000" quality="high" flashvars="config={'key':'#$aa4baff94a9bdcafce8','playlist':['format=Thumbnail?.jpg',{'autoPlay':false,'url':'Eldland_512kb.mp4'}],'clip':{'autoPlay':true,'baseUrl':'http://www.archive.org/download/Tierra_del_Fuego_seed_collection/','scaling':'fit','provider':'h264streaming'},'canvas':{'backgroundColor':'#000000','backgroundGradient':'none'},'plugins':{'controls':{'playlist':false,'fullscreen':true,'height':26,'backgroundColor':'#000000','autoHide':{'fullscreenOnly':true}},'h264streaming':{'url':'http://www.archive.org/flow/flowplayer.pseudostreaming-3.2.1.swf'}},'contextMenu':[{},'-','Flowplayer v3.2.1']}"> </embed></object>
+					<iframe width="780" height="585" src="//www.youtube.com/embed/jlFJeGsfQLA" frameborder="0" allowfullscreen></iframe>
 				</section>
 				<section>
 					<p>
@@ -107,24 +116,7 @@
 					<p>Heimildarmynd eftir Svein M. Sveinsson - <a href="http://plusfilm.is/">Plús film</a></p>
 				</header>
 				<section class="video_stream">
-<object width="640" height="506" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"><param value="true" name="allowfullscreen"/><param value="always" name="allowscriptaccess"/><param value="high" name="quality"/><param value="true" name="cachebusting"/><param value="#000000" name="bgcolor"/><param name="movie" value="http://www.archive.org/flow/flowplayer.commercial-3.2.1.swf" /><param value="config={'key':'#$aa4baff94a9bdcafce8','playlist':['format=Thumbnail?.jpg',{'autoPlay':false,'url':'Frumkvodlar__Jon_H_Bjornsson_512kb.mp4'}],'clip':{'autoPlay':true,'baseUrl':'http://www.archive.org/download/Frumkvodlar__Jon_H_Bjornsson/','scaling':'fit','provider':'h264streaming'},'canvas':{'backgroundColor':'#000000','backgroundGradient':'none'},'plugins':{'controls':{'playlist':false,'fullscreen':true,'height':26,'backgroundColor':'#000000','autoHide':{'fullscreenOnly':true}},'h264streaming':{'url':'http://www.archive.org/flow/flowplayer.pseudostreaming-3.2.1.swf'}},'contextMenu':[{},'-','Flowplayer v3.2.1']}" name="flashvars"/><embed src="http://www.archive.org/flow/flowplayer.commercial-3.2.1.swf" type="application/x-shockwave-flash" width="640" height="506" allowfullscreen="true" allowscriptaccess="always" cachebusting="true" bgcolor="#000000" quality="high" flashvars="config={'key':'#$aa4baff94a9bdcafce8','playlist':['format=Thumbnail?.jpg',{'autoPlay':false,'url':'Frumkvodlar__Jon_H_Bjornsson_512kb.mp4'}],'clip':{'autoPlay':true,'baseUrl':'http://www.archive.org/download/Frumkvodlar__Jon_H_Bjornsson/','scaling':'fit','provider':'h264streaming'},'canvas':{'backgroundColor':'#000000','backgroundGradient':'none'},'plugins':{'controls':{'playlist':false,'fullscreen':true,'height':26,'backgroundColor':'#000000','autoHide':{'fullscreenOnly':true}},'h264streaming':{'url':'http://www.archive.org/flow/flowplayer.pseudostreaming-3.2.1.swf'}},'contextMenu':[{},'-','Flowplayer v3.2.1']}"> </embed></object>
-<p>
-	<br />
-	Hærri upplausn:
-	<br /><br />
-<video controls="controls" poster="http://ia600409.us.archive.org/22/items/Frumkvodlar__Jon_H_Bjornsson/Frumkvodlar__Jon_H_Bjornsson.thumbs/Frumkvodlar__Jon_H_Bjornsson_001374.jpg" width="768" height="576">
-        <source src="http://alaska.is/site_media/video/Frumkvodlar__Jon_H_Bjornsson.avi.mp4" type="video/mp4" />
-        <source src="http://alaska.is/site_media/video/Frumkvodlar__Jon_H_Bjornsson.avi.webm" type="video/webm" />
-        <source src="http://alaska.is/site_media/video/Frumkvodlar__Jon_H_Bjornsson.avi.ogv" type="video/ogg" />
-        <object type="application/x-shockwave-flash" data="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf" width="768" height="576">
-                <param name="movie" value="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf" />
-                <param name="allowFullScreen" value="true" />
-                <param name="wmode" value="transparent" />
-                <param name="flashVars" value="config={'playlist':['http://ia600409.us.archive.org/22/items/Frumkvodlar__Jon_H_Bjornsson/Frumkvodlar__Jon_H_Bjornsson.thumbs/Frumkvodlar__Jon_H_Bjornsson_001374.jpg',{'url':'http://alaska.is/site_media/video/Frumkvodlar__Jon_H_Bjornsson.avi.mp4','autoPlay':false}]}" />
-                <img alt="Subtle Body" src="http://ia600409.us.archive.org/22/items/Frumkvodlar__Jon_H_Bjornsson/Frumkvodlar__Jon_H_Bjornsson.thumbs/Frumkvodlar__Jon_H_Bjornsson_001374.jpg" width="768" height="576" title="No video playback capabilities, please download the video below" />
-        </object>
-</p>
-</video>
+					<iframe width="780" height="585" src="//www.youtube.com/embed/DwFNMPJSJ3A" frameborder="0" allowfullscreen></iframe>
 				</section>
 				<section>
 					<a href="http://www.archive.org/details/Frumkvodlar__Jon_H_Bjornsson?start=113.5"><img alt="Still frame from: Frumkvöðlar : Jón H. Björnsson í Alaska" title="Still frame from: Frumkvöðlar : Jón H. Björnsson í Alaska" src="http://ia600409.us.archive.org/22/items/Frumkvodlar__Jon_H_Bjornsson/Frumkvodlar__Jon_H_Bjornsson.thumbs/Frumkvodlar__Jon_H_Bjornsson_000114.jpg" width="160" height="120"></a>
@@ -147,7 +139,7 @@
 					<p>9. og 11. júní 2009</p>
 				</header>
 				<section class="video_stream">
-					<object width="640" height="506" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"><param value="true" name="allowfullscreen"/><param value="always" name="allowscriptaccess"/><param value="high" name="quality"/><param value="true" name="cachebusting"/><param value="#000000" name="bgcolor"/><param name="movie" value="http://www.archive.org/flow/flowplayer.commercial-3.2.1.swf" /><param value="config={'key':'#$aa4baff94a9bdcafce8','playlist':['format=Thumbnail?.jpg',{'autoPlay':false,'url':'Jon_H_Bjornsson_skodar_garda_512kb.mp4'}],'clip':{'autoPlay':true,'baseUrl':'http://www.archive.org/download/Jon_H_Bjornsson_skodar_garda/','scaling':'fit','provider':'h264streaming'},'canvas':{'backgroundColor':'#000000','backgroundGradient':'none'},'plugins':{'controls':{'playlist':false,'fullscreen':true,'height':26,'backgroundColor':'#000000','autoHide':{'fullscreenOnly':true}},'h264streaming':{'url':'http://www.archive.org/flow/flowplayer.pseudostreaming-3.2.1.swf'}},'contextMenu':[{},'-','Flowplayer v3.2.1']}" name="flashvars"/><embed src="http://www.archive.org/flow/flowplayer.commercial-3.2.1.swf" type="application/x-shockwave-flash" width="640" height="506" allowfullscreen="true" allowscriptaccess="always" cachebusting="true" bgcolor="#000000" quality="high" flashvars="config={'key':'#$aa4baff94a9bdcafce8','playlist':['format=Thumbnail?.jpg',{'autoPlay':false,'url':'Jon_H_Bjornsson_skodar_garda_512kb.mp4'}],'clip':{'autoPlay':true,'baseUrl':'http://www.archive.org/download/Jon_H_Bjornsson_skodar_garda/','scaling':'fit','provider':'h264streaming'},'canvas':{'backgroundColor':'#000000','backgroundGradient':'none'},'plugins':{'controls':{'playlist':false,'fullscreen':true,'height':26,'backgroundColor':'#000000','autoHide':{'fullscreenOnly':true}},'h264streaming':{'url':'http://www.archive.org/flow/flowplayer.pseudostreaming-3.2.1.swf'}},'contextMenu':[{},'-','Flowplayer v3.2.1']}"> </embed></object>
+					<iframe width="780" height="585" src="//www.youtube.com/embed/bN62iUZ83mk" frameborder="0" allowfullscreen></iframe>
 				</section>
 				<section>
 					<p>
@@ -174,9 +166,26 @@
 				</p>
 			</footer>
 		</section>
-		<footer id="page_footer">
-			<hr />
-			<address>alaska@alaska.is</address>
-		</footer>
-	</body>
-</html>
+		
+		
+		<section id="greinar">
+			<h2>Greinar</h2>
+			<article>
+				<header></header>
+				<section></section>
+				<footer></footer>
+			</article>
+			<footer></footer>
+		</section>
+		
+		<section id="ritgerdir">
+			<h2>Ritgerðir</h2>
+			<article>
+				<header></header>
+				<section></section>
+				<footer></footer>
+			</article>
+			<footer></footer>
+		</section>
+
+{% endblock %}
