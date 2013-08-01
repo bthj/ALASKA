@@ -1,22 +1,22 @@
 var map;
 var infoWindow;
 var lurkur = {
-	url: staticUrlPrefix+"images/lurkur_lodrettur_x80.png",
-	size: new google.maps.Size(20.0, 80.0), 
+	url: staticUrlPrefix+"images/lurkur_pin_30x.png",
+	size: new google.maps.Size(30.0, 88.0), 
 	origin: new google.maps.Point(0, 0),
-	anchor: new google.maps.Point(10.0, 80.0)
+	anchor: new google.maps.Point(15.0, 88.0)
 };
 var lurkurHalffullur = {
-	url: staticUrlPrefix+"images/lurkur_lodrettur_halffullur_x80.png",
-	size: new google.maps.Size(20.0, 80.0), 
+	url: staticUrlPrefix+"images/lurkur_pin_halffullur_30x.png",
+	size: new google.maps.Size(30.0, 88.0), 
 	origin: new google.maps.Point(0, 0),
-	anchor: new google.maps.Point(10.0, 80.0)
+	anchor: new google.maps.Point(15.0, 88.0)
 };
 var shadow = {
-	url: staticUrlPrefix+"images/shadow-lurkur_lodrettur_x80.png",
-	size: new google.maps.Size(61.0, 80.0), 
+	url: staticUrlPrefix+"images/shadow-lurkur_pin_30x.png",
+	size: new google.maps.Size(75.0, 88.0), 
 	origin: new google.maps.Point(0, 0),
-	anchor: new google.maps.Point(10.0, 80.0)
+	anchor: new google.maps.Point(15.0, 88.0)
 };
 
 function openInfoWindow( marker ) {

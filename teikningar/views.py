@@ -12,7 +12,7 @@ import json
 import random
 
 def index(request):
-    context = {}
+    context = {'isFrontPage': False}
     return render(request, 'teikningar/index.html', context)
 
 def all_teikningar_as_kml(request):

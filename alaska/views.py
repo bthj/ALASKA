@@ -1,4 +1,9 @@
-from django.http import HttpResponse
+from django.shortcuts import render
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the alaska index.")
+    context = {'isFrontPage': True}
+    return render(request, 'teikningar/index.html', context)
+
+def jhb(request):
+    context = {'isFrontPage': True}
+    return render(request, 'alaska/jhb.html', context)

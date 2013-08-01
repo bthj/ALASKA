@@ -129,9 +129,6 @@ $(function() {
 {% endblock %}
 
 {% block content %}
-<header id="page_header">
-	<h1>ALASKA.is</h1>
-</header>
 
 <h2 style="text-align:center;">
 {% include "teikningar/teikning_title.html" %}
@@ -158,10 +155,14 @@ $(function() {
 		</section>
 		<footer>
 			<p id="scan-download">
-				Niðurhal:  <a id="scan-download-link" target="_blank" href="#"></a>
+				Niðurhal:  <a id="scan-download-link" target="_blank" href="http://teikningar.alaska.is/png/{{ teikning.scan_set.all.0.scan }}.png">http://teikningar.alaska.is/png/{{ teikning.scan_set.all.0.scan }}.png</a>
 			</p>		
 		</footer>
 	</article>
+{% endif %}
+
+{% if not teikning.scan_set.all %}
+{% include "teikningar/teikning_info.html" %}
 {% endif %}
 
 {% if teikning.latitude and teikning.longitude %}
@@ -177,36 +178,9 @@ $(function() {
 	</article>
 {% endif %}
 
-	<article>
-		<header>
-			<h2>Upplýsingar um verk</h2>
-		</header>
-		<section style="margin:auto;">
-			<dl style="margin-left:66%">
-				{% if teikning.skipulag != "" %}
-				<dt>Hönnun</dt>
-				<dd><a href="{% url 'one-skipulag' teikning.skipulag %}">{{teikning.skipulag}}</a></dd>
-				{% endif %}
-				
-				{% if teikning.teikning != "" %}
-				<dt>Teikning</dt>
-				<dd><a href="{% url 'one-teikning' teikning.teikning %}">{{teikning.teikning}}</a></dd>
-				{% endif %}
-				
-				{% if teikning.sveitarfelag != "" %}
-				<dt>Sveitarfélag</dt>
-				<dd><a href="{% url 'one-sveitarfelag' teikning.sveitarfelag %}">{{teikning.sveitarfelag}}</a></dd>
-				{% endif %}
-				
-				{% if teikning.dags != "" %}
-				<dt>Dags</dt>
-				<dd><a href="{% url 'one-artal' teikning.dags|date:"Y" %}">{{teikning.dags|date:"Y-m-d"}}</a></dd>
-				{% endif %}
-			</dl>
-		</section>
-		<footer>		
-		</footer>
-	</article>
+{% if  teikning.scan_set.all %}
+{% include "teikningar/teikning_info.html" %}
+{% endif %}
 	
 {% if teikning.myndband_set.all|length > 0 %}
 	<article id="teikningar-video">

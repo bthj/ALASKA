@@ -1,21 +1,47 @@
 body {
-	width:850px;
+	width:88%;
 	margin:15px auto;
 	font-family: Arial, "MS Trebuchet", sans-serif;
 }
 
-header#page_header {
+header#page_header, header#frontpage_header {
 	width:100%;
+	overflow:auto; /* sbr. http://www.quirksmode.org/css/clearing.html */
 }
-header h1 {
-	text-indent: -3000px;
-	background: url("../images/ALASKAvx150.png") no-repeat scroll center top;
+header#frontpage_header h1 {
 	height: 150px;
 	margin:0px 0px 30px 0px;
+	text-align: center;
+}
+header#frontpage_header h2 {
+	text-align: center;	
+}
+header#frontpage_header h2 a {
+	color: green;
+}
+header#page_header h1 {
+	margin:0px 0px 30px 5%;
+	float:left;
+}
+header#page_header h2 {
+	float:right;
+	background: url("../images/lurkur_larettur_250x.png") no-repeat scroll center top;
+	width: 252px;
+	height: 61px;
+	margin: 10px 10% 0px 0;
+}
+header#page_header h2 a {
+	display: block;
+	margin: 12px 0px 0px 22px;
+	color: black;
 }
 
 article, body footer {
 	margin-top: 52px;
+}
+
+#content > h2 {
+	color: green;
 }
 
 #content footer {

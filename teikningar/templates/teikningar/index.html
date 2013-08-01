@@ -61,11 +61,6 @@ $(function() {
 
 
 {% block content %}
-<header id="page_header">
-	<h1>ALASKA.is</h1>
-</header>
-
-<p style="text-align:center;">Landslagsteikningar eftir <a href="http://jhb.bthj.is/">Jón H. Björnsson</a></p>
 
 <section>
 	<article id="teikningar-map">
@@ -85,12 +80,12 @@ $(function() {
 		</header>
 		<section>
 			<ul>
-				<li><a href="skipulag/">Skipulag</a></li>
-				<li><a href="teikning/">Teikning</a></li>
-				<li><a href="sveitarfelag/">Sveitarfélag</a></li>
-				<li><a href="artol">Ártöl</a></li>
-				<li><a href="flokkar/">Flokkar</a></li>
-				<li><a href="myndband/">Myndskeið frá verkum</a></li>
+				<li><a href="{% url 'skipulag' %}">Skipulag</a></li>
+				<li><a href="{% url 'teikning' %}">Teikning</a></li>
+				<li><a href="{% url 'sveitarfelag' %}">Sveitarfélag</a></li>
+				<li><a href="{% url 'artol' %}">Ártöl</a></li>
+				<li><a href="{% url 'flokkar' %}">Flokkar</a></li>
+				<li><a href="{% url 'myndband' %}">Myndskeið frá verkum</a></li>
 			</ul>		
 		</section>
 		<footer></footer>
