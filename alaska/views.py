@@ -9,7 +9,7 @@ def index(request):
 def jhb(request):
     context = {
         'isFrontPage': False, 
-        'secondary_index_path': '/jhb/', 
+        'secondary_index_path': '/Jon-Hallgrimur-Bjornsson', 
         'secondary_index_title': 'Jón H. Björnsson'
     }
     

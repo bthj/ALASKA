@@ -57,7 +57,7 @@ def flokkar(request):
 def artol(request):
     artol = Teikning.objects.dates('dags','year',order='ASC')
     context = {'artol': artol, 'title': 'Ártöl'}
-    return render(request, 'teikningar/artol.html', context)
+    return render(request, 'teikningar/artol.html', dict( base_context.items() + context.items()))
 
 def entries_in_category(request, field, nafn, title_type, title):
     kwargsempty = {field: ''}

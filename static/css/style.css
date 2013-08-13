@@ -33,14 +33,14 @@ header#page_header h2 {
 header#page_header h2 a {
 	display: block;
 	margin: 12px 0px 0px 22px;
-	color: green;
+	color: black;
 }
 
 article, body footer {
 	margin-top: 52px;
 }
 
-#content > h2 {
+#content > h2, #content > section > h2 {
 	color: green;
 }
 

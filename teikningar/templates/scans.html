@@ -23,7 +23,7 @@
 		/* height: 80%; */
 		height: 500px;
 		width: 77%;
-		margin-left: 230px;  
+		margin-left: 255px;  
 		background-color: Black;
 	}
 	.active-scan {
@@ -112,6 +112,9 @@ function seadragonInit() {
     var scanWrapper = $('#scan-wrapper');
     if( scanNames.length > 1 ) {
     	scanWrapper.height( (scanNames.length-1) * 310 );
+    }
+    if( scanWrapper.height() < 500 ) {
+    	scanWrapper.height( 500 );
     }
 }
 Seadragon.Utils.addEvent(window, "load", seadragonInit);
