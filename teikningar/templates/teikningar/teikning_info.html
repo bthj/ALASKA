@@ -19,6 +19,16 @@
 				<dd><a href="{% url 'one-sveitarfelag' teikning.sveitarfelag %}">{{teikning.sveitarfelag}}</a></dd>
 				{% endif %}
 				
+				{% if teikning.flokkur != "" %}
+				<dt>Flokkur</dt>
+				<dd id="dd-flokkur"><a href="{% url 'one-flokkar' teikning.flokkur %}">{{teikning.flokkur}}</a></dd>
+				{% endif %}
+				
+				{% if teikning.flokkur_nanar != "" %}
+				<dt>Flokkur nánar</dt>
+				<dd>{{teikning.flokkur_nanar}}</dd>
+				{% endif %}
+				
 				{% if teikning.dags != "" %}
 				<dt>Dags</dt>
 				<dd><a href="{% url 'one-artal' teikning.dags|date:"Y" %}">{{teikning.dags|date:"Y-m-d"}}</a></dd>
@@ -28,3 +38,13 @@
 		<footer>		
 		</footer>
 	</article>
+	
+<script type="text/javascript">
+$(document).ready(function(){
+	var categoryMap = {'L01':'L1 einb&yacute;lish&uacute;sal&oacute;&eth;','L02':'L2 ra&eth;h&uacute;sal&oacute;&eth;','L03':'L3 fj&ouml;lb&yacute;lish&uacute;sal&oacute;&eth;','L04':'L4 almenningsgar&eth;ur','L05':'L5 &uacute;tivistarsv&aelig;&eth;i n&aelig;r','L06':'L6 &uacute;tivistarsv&aelig;&eth;i fjar','L07':'L7 sk&oacute;la-leiksk&oacute;lal&oacute;&eth;ir','L08':'L8 stofnanir anna&eth;','L09':'L9 l&oacute;&eth;ir vi&eth; atvinnuh&uacute;sn&aelig;&eth;i','L10':'L10 anna&eth;'};
+	var title = $('#dd-flokkur a').text();
+	if( categoryMap[title] ) {
+		$('#dd-flokkur a').html(categoryMap[title]);
+	}
+});
+</script>

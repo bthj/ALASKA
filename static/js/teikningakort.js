@@ -47,13 +47,18 @@ function addLurkMarker(placemark) {
     	openInfoWindow( this );
     });
 }
+function afterKMLparse() {
+	$("#teikningar-map").removeClass('loadingpanel');
+}
 function mapsInitialize() {
-
+	$("#teikningar-map").addClass('loadingpanel');
+	
 	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 	
 	var kmlParser = new geoXML3.parser({
 		map: map, 
 		createMarker: addLurkMarker, 
+		afterParse: afterKMLparse,
 		zoom: geoXML3ZoomToFit
 	});
     kmlParser.parse('/teikningar/kml/');

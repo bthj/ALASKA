@@ -41,4 +41,15 @@
 	</article>
 </section>
 
+<script type="text/javascript">
+$(document).ready(function(){
+	var categoryMap = {'L01':'L1 einb&yacute;lish&uacute;sal&oacute;&eth;','L02':'L2 ra&eth;h&uacute;sal&oacute;&eth;','L03':'L3 fj&ouml;lb&yacute;lish&uacute;sal&oacute;&eth;','L04':'L4 almenningsgar&eth;ur','L05':'L5 &uacute;tivistarsv&aelig;&eth;i n&aelig;r','L06':'L6 &uacute;tivistarsv&aelig;&eth;i fjar','L07':'L7 sk&oacute;la-leiksk&oacute;lal&oacute;&eth;ir','L08':'L8 stofnanir anna&eth;','L09':'L9 l&oacute;&eth;ir vi&eth; atvinnuh&uacute;sn&aelig;&eth;i','L10':'L10 anna&eth;'};
+	$('section ul li a').each(function(i){
+		if( categoryMap[jQuery(this).html()] ) {
+			jQuery(this).html( categoryMap[jQuery(this).html()] );
+		}
+	});
+});
+</script>
+
 {% endblock %}

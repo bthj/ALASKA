@@ -16,7 +16,8 @@ header#frontpage_header h1 {
 header#frontpage_header h2 {
 	text-align: center;	
 }
-header#frontpage_header h2 a {
+/* header#frontpage_header h2 a, #content > section > h2, article header h2 a { */
+a {
 	color: green;
 }
 header#page_header h1 {
@@ -25,23 +26,21 @@ header#page_header h1 {
 }
 header#page_header h2 {
 	float:right;
-	background: url("../images/lurkur_larettur_250x.png") no-repeat scroll center top;
+	background: url("../images/lurkur_larettur_skuggalaus_x30.png") no-repeat scroll center bottom;
 	width: 252px;
 	height: 61px;
 	margin: 10px 10% 0px 0;
+	text-align: center;
 }
 header#page_header h2 a {
 	display: block;
-	margin: 12px 0px 0px 22px;
-	color: black;
+	margin: 2px 0px 0px 0px;
+	color: green;
+	text-decoration: none;
 }
 
 article, body footer {
 	margin-top: 52px;
-}
-
-#content > h2, #content > section > h2 {
-	color: green;
 }
 
 #content footer {
@@ -102,4 +101,10 @@ section ul li, nav ul li {
 #teikningar-thumbs img {
 	margin: 1em;
 	border: 5px solid lightgray;
+}
+
+
+
+.loadingpanel {
+	background: #fff url(../images/loading.gif) right top no-repeat!important;
 }

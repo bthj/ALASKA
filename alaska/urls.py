@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 import settings
 import views
+from django.http import HttpResponse
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -22,4 +23,6 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^proxy/$', 'teikningar.views.proxy', name='proxy'),
     url(r'^cocodati/$', 'teikningar.views.cocodati', name='cocodati'),
+    # google web master tools verification
+    (r'^google3678b2301d700658\.html$', lambda r: HttpResponse("google-site-verification: google3678b2301d700658.html", mimetype="text/plain")),
 )
