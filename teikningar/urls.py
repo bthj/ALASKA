@@ -12,7 +12,7 @@ urlpatterns = patterns('',
     # ex: /teikningar/
     url(r'^$', cache_page(time_to_cache)(views.index), name='index'),
     # ex: /teikningar/5/
-    url(r'^(?P<teikning_id>\d+)/$', cache_page(time_to_cache)(views.detail), name='detail'),
+    url(r'^(?P<teikning_id>\d+)/$', views.detail, name='detail'),
  
     # ex: /teikningar/kml/
     url(r'^kml/$', cache_page(time_to_cache)(views.all_teikningar_as_kml), name='all_teikningar_as_kml'),

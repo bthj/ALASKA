@@ -7,15 +7,20 @@
 {{ block.super }}	
 <meta name="description" content="Landslagsteikning fyrir: {% include "teikningar/teikning_title.html" %}, Skipulag: {{teikning.skipulag}}, Teikning: {{teikning.teikning}}">
 <meta name="keywords" content="landslagsarkitekt, {{teikning.skipulag}}, {{teikning.teikning}}">
+{% endblock %}
 
-<link rel="stylesheet" href="{% static "css/teikning.css" %}" />
-<link rel="stylesheet" href="{% static "css/maps.css" %}" />
-<script type="text/javascript" src="http://teikningar.alaska.is/seadragon-min/seadragon-min.js"></script>
+
+
+{% block extraheadjs %}
+{{ block.super }}
+<script type="text/javascript" src="{% static "seadragon-min/seadragon-min.js" %}"></script>
+<script src="{% static "js/jquery-seadragon.js" %}"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_PsDKacUAo155HuRv0eUvg6z3JWpHyPY&sensor=false"></script>
 <script type="text/javascript" src="{% static "js/geoxml3.js" %}"></script>
 <script type="text/javascript">
 var scanNames = [ {% for scan in teikning.scan_set.all %}'{{ scan.scan }}',{% endfor %} ]
 var viewer = null;
+/*
 function onZoomitResponse(resp) {
     if (resp.error) {
         // e.g. the URL is malformed or the service is down
@@ -34,17 +39,21 @@ function onZoomitResponse(resp) {
             Math.round(100 * content.progress) + "% tilbúin.");
     }
 }
+*/
 function doOpen( scanName, anchor ) {
 	if( anchor ) {
 		window.location.hash = "#" + scanName;
 	}
 	var scanUrl = "http://teikningar.alaska.is/png/" + scanName + ".png";
+	/*
 	$.ajax({
 	    url: "http://api.zoom.it/v1/content/?url=" +
 	        encodeURIComponent( scanUrl ),
 	    dataType: "jsonp",
 	    success: onZoomitResponse
 	});
+	*/
+	$("#scan-dzi").seadragon(scanUrl);
 
 	$("#scan-thumbs img").removeClass("active-scan").addClass("inactive-scan");
 	$("#scan-thumbs img[src='http://teikningar.alaska.is/pngX160/" + scanName +".png']").removeClass("inactive-scan").addClass("active-scan");
@@ -127,6 +136,8 @@ $(function() {
 });
 </script>
 {% endblock %}
+
+
 
 {% block content %}
 

@@ -21,7 +21,7 @@ a {
 	color: green;
 }
 header#page_header h1 {
-	margin:0px 0px 30px 5%;
+	margin:5px 0px 25px 5%;
 	float:left;
 }
 header#page_header h2 {
@@ -37,6 +37,14 @@ header#page_header h2 a {
 	margin: 2px 0px 0px 0px;
 	color: green;
 	text-decoration: none;
+}
+
+article header h2 a {
+	text-decoration: none;
+}
+
+header#page_header h2 a:hover, article header h2 a:hover {
+	text-decoration: underline;
 }
 
 article, body footer {
@@ -75,18 +83,20 @@ article.video section.video_stream {
 
 /* flokkar */
 /* from http://stackoverflow.com/questions/5449872/css-notlast-childafter-selector */
-#teikningar-categories ul, #teikningar-artol ul {
+#teikningar-categories ul, #teikningar ul {
     list-style-type:   none;
     text-align:        center;
 }
-#teikningar-categories li, #teikningar-artol li {
-    display:           inline;
+#teikningar-categories li, #teikningar li {
+    display:           inline-block;
 }
-#teikningar-categories li:not(:last-child):after, #teikningar-artol li:not(:last-child):after {
+#teikningar-categories li:not(:last-child):after, #teikningar li:not(:last-child):after {
     content:           ' |';
 }
-#teikningar-artol li {
-	font-size: 2.5em;
+#teikningar-categories li, #teikningar li {
+	font-size: 1.4em;
+	white-space:nowrap;
+	margin-bottom:5px;
 }
 
 section ul li, nav ul li {
@@ -100,6 +110,46 @@ section ul li, nav ul li {
 }
 #teikningar-thumbs img {
 	margin: 1em;
+	border: 5px solid lightgray;
+}
+
+/***** map *****/
+#map-canvas {
+  height: 480px;
+}
+
+/***** teikning *****/
+/* one drawing display */
+
+#scan-thumbs {
+	margin-top: 5px;
+	text-align:center;
+}
+#scan-download {
+	width:100%;
+	text-align:center;
+	margin-top:10px;
+}
+#scan-thumbs a {
+/* 	padding-right: 5px; */
+}
+/* #scan-thumbs span { */
+/* 	float: left; */
+/* } */
+#scan-thumbs img {
+	cursor: pointer;
+/* 	float: left; */
+	margin: 1em;
+}
+#scan-dzi {
+	height: 500px;
+	width: 100%;
+	background-color: lightgray;
+}
+.active-scan {
+	border: 5px solid black;
+}
+.inactive-scan {
 	border: 5px solid lightgray;
 }
 

@@ -15,7 +15,7 @@
 {% block content %}
 
 <section>
-	<article>
+	<article id="teikningar">
 		<header>
 			<h2>{{title}}</h2>
 		</header>
@@ -27,7 +27,7 @@
 			      		{% if flokkur|getattribute:field == "" %}
 			      			<a href="vantar/">Vantar</a>
 			      		{% else %}
-			    	  		<a href="{{ flokkur|getattribute:field }}/">{{ flokkur|getattribute:field }}</a>
+			    	  		<a href="{{ flokkur|getattribute:field|urlencode }}/">{{ flokkur|getattribute:field }}</a>
 				       	{% endif %}
 			       </li>
 			    {% endfor %}

@@ -61,12 +61,12 @@ def artol(request):
 
 def entries_in_category(request, field, nafn, title_type, title):
     kwargsempty = {field: ''}
-    kwargs = {field: nafn}
+    kwargs = {field: urllib.unquote(nafn.encode('utf-8'))}
     if nafn == 'vantar':
         teikningar = Teikning.objects.filter(**kwargsempty)
     else:
         teikningar = Teikning.objects.filter(**kwargs)
-    context = {'teikningar': teikningar, 'title_type': title_type, 'title': title}
+    context = {'teikningar': teikningar, 'title_type': title_type, 'title': urllib.unquote(title.encode('utf-8'))}
     return render(request, 'teikningar/teikningar.html', dict(base_context.items() + context.items()))
 def skipuleggjandi(request, nafn):
     return entries_in_category(request, 'skipulag', nafn, 'Hönnun', nafn)

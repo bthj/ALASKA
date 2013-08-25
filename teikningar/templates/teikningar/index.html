@@ -8,8 +8,12 @@
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 <meta name="description" content="Landslagsteikningar Jóns H. Björnssonar">
 <meta name="keywords" content="landslagsarkitekt, landslagsarkitektúr, skipulag, garðar">
+{% endblock %}
 
-<link rel="stylesheet" href="{% static "css/maps.css" %}" />
+
+
+{% block extraheadjs %}
+{{ block.super }}
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_PsDKacUAo155HuRv0eUvg6z3JWpHyPY&sensor=false"></script>
 <script type="text/javascript" src="{% static "js/geoxml3.js" %}"></script>
 
@@ -28,7 +32,7 @@ google.maps.event.addDomListener(window, 'load', mapsInitialize);
 
 <script type="text/javascript">
 ///// Thumbs with infinite scroll
-$(function() {	
+$(function() {
 	var scans;
 	
 	function appendThumbsUntilInvisible() {
@@ -48,11 +52,13 @@ $(function() {
         if( $(window).scrollTop() == $(document).height() - $(window).height() ){  
         	appendThumbsUntilInvisible();  
         }  
-	}); 
+	});
 	
+    $('#teikningar-thumbnails').addClass('loadingpanel');
 	$.get("/teikningar/scans-in-random/", function(data){	
 		scans = data;
 		appendThumbsUntilInvisible();
+		$('#teikningar-thumbnails').removeClass('loadingpanel');
 	});
 	
 });
