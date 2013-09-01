@@ -8,6 +8,9 @@ header#page_header, header#frontpage_header {
 	width:100%;
 	overflow:auto; /* sbr. http://www.quirksmode.org/css/clearing.html */
 }
+header#page_header img, header#frontpage_header img {
+	border-style: none;
+}
 header#frontpage_header h1 {
 	height: 150px;
 	margin:0px 0px 30px 0px;
