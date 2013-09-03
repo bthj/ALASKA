@@ -13,14 +13,38 @@
 
 {% block extraheadjs %}
 {{ block.super }}
-<script type="text/javascript" src="{% static "seadragon-min/seadragon-min.js" %}"></script>
-<script src="{% static "js/jquery-seadragon.js" %}"></script>
+<!-- <script type="text/javascript" src="{% static "seadragon-min/seadragon-min.js" %}"></script> -->
+<!-- <script src="{% static "js/jquery-seadragon.js" %}"></script> -->
+<script type="text/javascript" src="{% static "js/openseadragon.min.js" %}"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_PsDKacUAo155HuRv0eUvg6z3JWpHyPY&sensor=false"></script>
 <script type="text/javascript" src="{% static "js/geoxml3.js" %}"></script>
 <script type="text/javascript">
 var scanNames = [ {% for scan in teikning.scan_set.all %}'{{ scan.scan }}',{% endfor %} ]
-var viewer = null;
-/*
+//var viewer = null;
+
+function openSeadragon(content) {
+	OpenSeadragon({ 
+		id:             "scan-dzi",
+		prefixUrl:       "/static/images/openseadragon/",
+		defaultZoomLevel:        1,
+		visibilityRatio:         0.5,
+		tileSources:   [{
+			Image: {
+				xmlns:    'http://schemas.microsoft.com/deepzoom/2008',
+				Url:      "http://cache.zoom.it/content/"+content.id+"_files/",
+				Format:   content.dzi.tileFormat,
+				Overlap:  "0", 
+				TileSize: content.dzi.tileSize,
+				ServerFormat: "Default",
+	            Size: { 
+	                Width: content.dzi.width,
+	                Height: content.dzi.height
+	            }
+			},
+		}]
+	});
+}
+
 function onZoomitResponse(resp) {
     if (resp.error) {
         // e.g. the URL is malformed or the service is down
@@ -31,7 +55,9 @@ function onZoomitResponse(resp) {
     var content = resp.content;
      
     if (content.ready) {
-        viewer.openDzi(content.dzi);
+        //viewer.openDzi(content.dzi);
+        console.log(content.dzi);
+        openSeadragon(content);
     } else if (content.failed) {
         // alert(content.url + " failed to convert.");
     } else {
@@ -39,21 +65,21 @@ function onZoomitResponse(resp) {
             Math.round(100 * content.progress) + "% tilbúin.");
     }
 }
-*/
+
 function doOpen( scanName, anchor ) {
 	if( anchor ) {
 		window.location.hash = "#" + scanName;
 	}
 	var scanUrl = "http://teikningar.alaska.is/png/" + scanName + ".png";
-	/*
+	
 	$.ajax({
 	    url: "http://api.zoom.it/v1/content/?url=" +
 	        encodeURIComponent( scanUrl ),
 	    dataType: "jsonp",
 	    success: onZoomitResponse
 	});
-	*/
-	$("#scan-dzi").seadragon(scanUrl);
+	
+	// $("#scan-dzi").seadragon(scanUrl);
 
 	$("#scan-thumbs img").removeClass("active-scan").addClass("inactive-scan");
 	$("#scan-thumbs img[src='http://teikningar.alaska.is/pngX160/" + scanName +".png']").removeClass("inactive-scan").addClass("active-scan");
@@ -61,7 +87,7 @@ function doOpen( scanName, anchor ) {
 	$('#scan-download-link').attr('href', scanUrl).text(scanUrl);
 }
 function seadragonInit() {
-	viewer = new Seadragon.Viewer($('#scan-dzi').get(0));
+//	viewer = new Seadragon.Viewer($('#scan-dzi').get(0));
 	if( scanNames.length > 1 ) {
 		for( s = 0; s < scanNames.length; s++ ) {
 			$('#thumb_a_'+(s+1)).click(function(event){
@@ -82,7 +108,8 @@ function seadragonInit() {
     doOpen(hash || scanNames[0], false);    // don't anchor
 }
 if( scanNames.length > 0 ) {
-	Seadragon.Utils.addEvent(window, "load", seadragonInit);	
+	//Seadragon.Utils.addEvent(window, "load", seadragonInit);
+	$(seadragonInit);
 }
 </script>
 
