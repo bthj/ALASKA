@@ -1,4 +1,5 @@
 {% extends "alaska_base.html" %}
+{% load static %}
 
 {% block title %} - Jón H. Björnsson, landslagsarkitekt{% endblock %}
 
@@ -10,7 +11,12 @@
 
 {% block content %}
 		
-		<p>Um Jón H. Björnsson...</p>
+		<p>
+			<img src="{% static 'images/jhb.jpg' %}" style="float:right;margin-left:10px;" width="50%" title="Jón H. Björnsson"/>
+			Jón H. Björnsson stofnaði gróðrarstöðina Alaska árið 1953 og var fyrsti íslenski landslagsarkitektinn.
+			<br />
+			Á þessum vef er skrá yfir <a href="{% url 'teikningarindex' %}">landslagsverk</a> og hér á síðunni má sjá kvikmyndir og skrif sem varpa ljósi á feril hans.
+		</p>
 		
 		<nav>
 			<ul>

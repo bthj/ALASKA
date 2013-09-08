@@ -10,7 +10,7 @@ time_to_cache = 60 * 24
 
 urlpatterns = patterns('',
     # ex: /teikningar/
-    url(r'^$', cache_page(time_to_cache)(views.index), name='index'),
+    url(r'^$', cache_page(time_to_cache)(views.index), name='teikningarindex'),
     # ex: /teikningar/5/
     url(r'^(?P<teikning_id>\d+)/$', views.detail, name='detail'),
  
