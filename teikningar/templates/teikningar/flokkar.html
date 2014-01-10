@@ -23,13 +23,18 @@
 			{% if flokkar %}
 			    <ul>
 			    {% for flokkur in flokkar %}
-			        <li>
-			      		{% if flokkur|getattribute:field == "" %}
-			      			<a href="vantar/">Vantar</a>
-			      		{% else %}
+			    	{% if flokkur|getattribute:field != "" %}
+			        	<li>
 			    	  		<a href="{{ flokkur|getattribute:field|urlencode }}/">{{ flokkur|getattribute:field }}</a>
-				       	{% endif %}
-			       </li>
+			       		</li>
+			       {% endif %}
+			    {% endfor %}
+			    {% for flokkur in flokkar %}
+			    	{% if flokkur|getattribute:field == "" %}
+			        	<li>
+			      			<a href="óskráð/">óskráð</a>
+			       		</li>
+			       {% endif %}
 			    {% endfor %}
 			    </ul>
 			{% else %}

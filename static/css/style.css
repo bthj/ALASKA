@@ -54,8 +54,11 @@ article, body footer {
 	margin-top: 52px;
 }
 
-#content footer {
-	text-align: right;
+#content footer address {
+	float: left;
+}
+#content footer .about {
+	float: right;
 }
 
 .reference {

@@ -60,9 +60,10 @@ def artol(request):
     return render(request, 'teikningar/artol.html', dict( base_context.items() + context.items()))
 
 def entries_in_category(request, field, nafn, title_type, title):
+    nafn = urllib.unquote(nafn.encode('utf-8'))
     kwargsempty = {field: ''}
-    kwargs = {field: urllib.unquote(nafn.encode('utf-8'))}
-    if nafn == 'vantar':
+    kwargs = {field: nafn}
+    if nafn == 'óskráð':
         teikningar = Teikning.objects.filter(**kwargsempty)
     else:
         teikningar = Teikning.objects.filter(**kwargs)
