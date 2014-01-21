@@ -68,17 +68,6 @@ $(function() {
 {% block content %}
 
 <section>
-	<article id="teikningar-map">
-		<header>
-			<h2>Staðsetning teikninga</h2>
-			<p>Smellið á lurkana til að sjá upplýsingar um verk:</p>
-		</header>
-		<section>
-			<div id="map-canvas"></div>
-		</section>
-		<footer></footer>
-	</article>
-	
 	<article id="teikningar-categories">
 		<header>
 			<h2>Teikningar flokkaðar</h2>
@@ -92,6 +81,18 @@ $(function() {
 				<li><a href="{% url 'flokkar' %}">Flokkar</a></li>
 				<li><a href="{% url 'myndband' %}">Myndskeið frá verkum</a></li>
 			</ul>		
+		</section>
+		<footer></footer>
+	</article>
+	
+	
+	<article id="teikningar-map">
+		<header>
+			<h2>Staðsetning teikninga</h2>
+			<p>Smellið á lurkana til að sjá upplýsingar um verk:</p>
+		</header>
+		<section>
+			<div id="map-canvas"></div>
 		</section>
 		<footer></footer>
 	</article>
